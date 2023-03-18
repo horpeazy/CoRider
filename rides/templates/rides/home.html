@@ -1,0 +1,74 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+{% endblock %}
+{% block content %}
+	<section class='hero'>
+		<div>
+			<p>Most trusted carpooling service</p>
+			<h1>Enjoy Your Comfortable Trip<span>.</span></h1>
+			<p>
+			   Join the thousands of satisfied riders who have chosen
+			   our trusted carpooling service and experience the comfort
+			   and convenience of a stress-free commute.
+			</p>
+		</div>
+		<div>
+			<img src="{% static '/images/phone.png' %}" alt="mobile-app-image" class="phone"/>
+		</div>
+	</section>
+	<section class="offer">
+		<div class="offer-intro">
+			<h3>What We Offer</h3>
+			<h2>We Offer The Best For You<span>.</span></h2>
+			<p>
+				Discover the ultimate carpooling experience with our app - enjoy
+				seemless ride-sharing, reduced travel costs, and a greener tomorrow. Join us today!   
+			</p>
+		</div>
+		<div class="offer-cards-wrapper">
+			<div class="card">
+				<div class="card-upper">
+					<div class="dollar-icon"><i class="fas fa-dollar-sign"></i></div>
+					<div>
+						<p>Payment Integration</p>
+						<p>Secure and hassle-free</p>
+					</div>
+				</div>
+				<div class="card-icons-wrapper">
+					<span><i class="fas fa-brands fa-cc-mastercard"></i></span>
+					<span><i class="fas fa-brands fa-cc-visa"></i></span>
+					<span><i class="fas fa-brands fa-cc-stripe"></i></span>
+					<span><i class="fas fa-brands fa-cc-paypal"></i></span>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-upper">
+					<div class="privacy-icon"><i class="fas fa-shield-alt"></i></div>
+					<div>
+						<p>Safety First</p>
+						<p>Your safety is out top priority</p>
+					</div>
+				</div>
+				<div class="card-icons-wrapper">
+					<span class="card-inline"><i class="fas fa-credit-card"></i><span>Gurantee </span></span>
+					<span class="card-inline"><i class="fas fa-car"></i><span>Quick ride </span></span>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-upper">
+					<div class="tablet-icon"><i class="fas fa-tablet"></i></div>
+					<div>
+						<p>100% Digital</p>
+						<p>Streamlined digital experience</p>
+					</div>
+				</div>
+				<div class="card-icons-wrapper">
+					<span class="card-inline"><i class="fas fa-brands fa-apple"> </i><span>Apple</span> </span>
+					<span class="card-inline"><i class="fas  fa-brands fa-android"></i><span>Android</span> </span>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

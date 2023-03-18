@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/main.css?cache_id={{ context.cache_id }}"/>
+    <title>{{ context.title }}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <div class="nav-info">
+            <p class="info-dig">
+                <span>
+                    corider@support.com
+                <span>
+                    (+234) 9153547755
+                </span>
+                <span>
+                    (+234) 9170454578
+                </span>
+            </p>
+            <p>We Provide <span>The Best Service & Discounts</span> For You</p>
+        </div>
+        <div class="nav-bar">
+            <div><img src="/static/images/logo.png?cache_id={{ context.cache_id }}" alt="logo"> </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+            <a href="/ride" class="ride">Let's ride now!</a>
+            <button class="open"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+    <section class="sidebar">
+    	<div>
+    		<img src="/static/images/logo.png?cache_id={{ context.cache_id }}" alt="logo">
+    		<span class="close"><i class="fas fa-close"></i></span>
+    	</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </section>
+    {% block content %}
+    {% endblock %}
+    
+    <footer>
+    	<section>
+    		<div>
+    			<h3>Address</h3>
+    			<p>1234, Horpeazy Street, Benin City,</p>
+    			<p>Edo State, Nigeria.</p>
+    		</div>
+    		<div>
+    			<h3>Contact</h3>
+    			<p>contact@hopeiyamu.tech</p>
+    			<p>(+234) 70454578</p>
+    		</div>
+    		<div>
+    			<h3>Work</h3>
+    			<p>Mon - Sat: 8:00 - 18:00</p>
+    			<p>Sun: 9:00 - 18:00</p>
+    		</div>
+    		<div class="newsletter">
+    			<h3>Newsletter</h3>
+    			<form>
+    				<input type='text' name='subscribe' id='subscribe' placeholder="Email address">
+    				<button><i class="fas fa-paper-plane"></i></button>
+    			</form>
+    		</div>
+    	</section>
+    	<section>
+    		<div>
+    			&copy 2023 CoRider
+    		</div>
+    		<div>
+    			<img src="{% static 'images/logo-footer.png' %}"/>
+    		</div>
+    		<div>
+    			<a href="/privacy">Privacy Policy</a>
+    			<a href="/terms">Terms & Conditions</a>
+    		</div>
+    	</section>
+    </footer>
+    <script>
+    	const closeEl = document.querySelector('.close');
+    	const openEl = document.querySelector('.open');
+    	const sidebarEl = document.querySelector('.sidebar');
+    	
+    	closeEl.addEventListener('click', () => {
+    		sidebarEl.style.left = '-100vw';
+    	})
+    	
+    	openEl.addEventListener('click', () => {
+    		sidebarEl.style.left = "0px";
+    	})
+    </script>
+</body>
+</html>
