@@ -94,6 +94,10 @@ nav {
 	height: auto;
 }
 
+.dot {
+	color: var(--clr-yellow);
+}
+
 .ride {
 	display: block;
 	text-decoration: none;
