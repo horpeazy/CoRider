@@ -1,0 +1,414 @@
+.hero {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 70vh;
+    color: white;
+    background-image:  linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/about.jpg');
+}
+
+.hero div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero > div{
+    text-align: center;
+}
+
+.hero a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero > div div span {
+    color: white;
+}
+
+.hero i {
+    color: var(--clr-yellow);
+}
+
+h1, .ul-wrapper, p {
+    margin: 10px 0;
+}
+
+.ul-wrapper, h5 {
+    color: var(--clr-text);
+}
+
+.about-cta p {
+    color: black;
+}
+
+.main-wrapper {
+    padding: 100px 50px;
+}
+
+.main h4 {
+    color: var(--clr-yellow);
+}
+
+
+.ul-wrapper li {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 3px;
+}
+
+.cta img {
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+}
+
+
+.ul-wrapper li i {
+    color: var(--clr-yellow);
+}
+
+.about-images {
+    position: relative;
+    min-height: 250px;
+}
+
+.about-images img:nth-child(1) {
+    width: 100%;
+    height: auto;
+}
+
+
+.about-images img:nth-child(2) {
+    display: none;
+}
+
+.card p:nth-child(1) {
+    color: black;
+}
+
+.show {
+    padding: 100px 30px;
+    text-align: center;
+    background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/podium.jpg');
+    color: white;
+    position: relative;
+    min-height: 70vh;
+}
+
+.show p, 
+.steps p,
+.experience p,
+.team p {
+    max-width: 600px;
+    margin: auto;
+}
+
+.show h1, 
+.steps h1,
+.experience h1,
+.team h1{
+    margin: 15px 0;
+}
+
+.show h4, 
+.steps h4 ,
+.experience h4,
+.team h4{
+    color: var(--clr-yellow);
+}
+
+.show img {
+    position: absolute;
+    bottom: -40px;
+    right: 50%;
+    width: 90%;
+    height: auto;
+    transform: translateX(50%);
+    z-index: 2;
+}
+
+.steps, .experience {
+    padding: 90px 10px 50px 10px;
+    text-align: center;
+}
+
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin: 40px auto 0px;
+    max-width: 85%;
+}
+
+.steps-list li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 250px;
+}
+
+.steps-list li div {
+    padding: 20px 25px;
+    border-radius: 10px;
+    margin: 20px auto;
+    box-shadow: var(--light-shadow);
+}
+
+
+
+.steps-list i {
+    font-size: 25px;
+}
+
+.steps-list li:nth-child(1) div,
+.steps-list li:nth-child(4) div
+{
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+}
+
+.steps-list li:nth-child(2) div {
+    background-color: var(--clr-white);
+    color: var(--clr-yellow);
+}
+
+.steps-list li:nth-child(3) div {
+    background-color: var(--clr-yellow);
+    color: var(--clr-primary);
+}
+
+.steps-list p {
+    font-size: 14px;
+    color: var(--clr-primary);
+}
+
+.steps-list h3 {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.experience {
+    background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/taxi-sign.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 80vh; /* Set height to viewport height */
+    color: white;
+    position: relative;
+}
+
+.experience-metric {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: var(--clr-white);
+    color: var(--clr-primary);
+    border-radius: 20px;
+    box-shadow: var(--light-shadow);
+}
+
+.experience-metric h1 {
+    position: relative;
+}
+
+.experience-metric p {
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: grey;
+}
+
+.experience-metric h1 i{
+    position: absolute;
+    font-size: 15px;
+    top: 50%;
+    transform: translate(50%, -50%);
+    color: var(--clr-yellow);
+}
+
+.team {
+    padding: 75px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.team-ceo {
+    background-image: url('/static/images/CEO.jpg');
+}
+
+.team-manager {
+    background-image: url('/static/images/Jesse.jpg');
+}
+
+.team-card {
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.team-card > div {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--clr-primary);
+    width: 150px;
+    padding: 15px;
+    text-align: right;
+    border-radius: 10px;
+}
+
+.team-card div p {
+    font-size: 16px;
+    color: white;
+}
+
+.team-card div h5 {
+    color: var(--clr-yellow);
+}
+
+.team a {
+    display: block;
+    padding: 20px;
+    background: var(--clr-yellow);
+    color: var(--clr-primary);
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    margin: 10px 0px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.team a:hover {
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+}
+
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 26px;
+    }
+}
+
+
+@media screen and (min-width: 768px){
+    .nav-info p {
+        margin-top: -5px;
+    }
+    
+    .main {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .main > div {
+        flex-basis: 50%;
+    }
+
+    .about-images img:nth-child(2) {
+        position: absolute;
+        top: 18%;
+        z-index: 2;
+        border-radius: 15px;
+        border: 20px solid #FFFFFF;
+    }
+
+    .about-images img:nth-child(1) {
+        position: absolute;
+        left: 45%;
+        width: 55%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .about-images img {
+        width: 55%;
+        height: auto;
+    }
+
+    .about-images img:nth-child(2) {
+        display: block;
+    }
+
+    .ul-wrapper {
+        display: flex;
+        gap: 30px;
+    }
+
+    .about-cta p {
+        font-size: 20px;
+    }
+
+    .cta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .show {
+        min-height: 90vh;
+        padding: 100px 50px;
+    }
+
+    .show img {
+        bottom: -80px;
+        width: 60%;
+    }
+
+    .steps {
+        padding: 140px 50px 100px 50px;
+    }
+
+    .steps-list {
+        flex-direction: row;
+    }
+
+    .experience {
+        height: 70vh;
+    }
+
+    .experience-metric {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .team {
+        flex-direction: row;
+        padding: 200px 100px 100px 100px;
+        gap: 50px;
+    }
+
+    .team > div {
+        flex-basis: 30%;
+    }
+
+    .team-card {
+        width: 30%;
+        height: 400px;
+    }
+
+    .team a {
+        width: 200px;
+    }
+}

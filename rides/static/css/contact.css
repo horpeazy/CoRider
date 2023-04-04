@@ -1,8 +1,215 @@
-.hero-alt {
-	min-height: calc(100vh - 100px);
-	background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/contact-bg.jpg');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-blend-mode: multiply;
+
+.hero {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 70vh;
+    color: white;
+    background-image:  linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/contact2.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero > div{
+    text-align: center;
+}
+
+.hero a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero > div div span {
+    color: white;
+}
+
+.hero i {
+    color: var(--clr-yellow);
+}
+
+.contact {
+    padding: 50px 20px;
+}
+
+.contact ul {
+    margin: 30px 0px;
+}
+
+.contact ul li {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 10px 0px;
+    align-items: center;
+}
+
+.contact li i {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    box-shadow: var(--light-shadow);
+    border-radius: 5px;
+}
+
+.contact li:nth-of-type(1) i {
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+}
+
+.contact li:nth-of-type(2) i {
+    background-color: var(--clr-yellow);
+    color: var(--clr-black);
+}
+
+.contact li:nth-of-type(3) i {
+    background-color: var(--clr-white);
+    color: var(--clr-yellow);
+}
+
+.social-media {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.social-media div:nth-of-type(2) {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.social-media i {
+    font-size: 15px;
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.social-media i:nth-of-type(1) {
+    background-color: var(--clr-yellow);
+    color: var(--clr-primary);
+}
+
+.contact h2 {
+     margin: 10px 0px;
+}
+
+.contact h4 {
+    color: var(--clr-yellow);
+}
+
+.contact p {
+    font-size: 14px;
+    color: grey;
+}
+
+.contact > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+form {
+    width: 100%;
+    padding: 40px 20px;
+    box-shadow: var(--light-shadow);
+    border-radius: 20px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    outline: none;
+    border: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: var(--clr-yellow) !important;
+    color: var(--clr-black) !important;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: var(--clr-primary) !important;
+    color: var(--clr-yellow) !important;
+}
+
+textarea {
+    height: 150px !important;
+    resize: vertical;
+    padding: 20px;
+}
+
+.form-group div {
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin-top: 50px;
+    border-radius: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .contact {
+        padding: 100px;
+    }
+
+    .contact > div:nth-child(1) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 80px;
+    }
+
+    .contact > div:nth-child(1) div {
+        flex-basis: 50%;
+    }
+
+    .form-group:nth-of-type(1) {
+        display: flex;
+        gap: 20px;
+    }
+
+    form {
+        padding: 40px;
+    }
+
+    .form-group div {
+        margin-bottom: 0px;
+    }
 }

@@ -1,0 +1,337 @@
+.hero {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 70vh;
+    color: white;
+    background-image:  linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/team.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero > div{
+    text-align: center;
+}
+
+.hero a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero > div div span {
+    color: white;
+}
+
+.hero i {
+    color: var(--clr-yellow);
+}
+
+.team {
+    padding: 75px 25px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 30px;
+}
+
+.team > div:nth-of-type(1) {
+    align-self: center;
+}
+
+.team-ceo {
+    background-image: url('/static/images/CEO.jpg');
+}
+
+.team-manager {
+    background-image: url('/static/images/Jesse.jpg');
+}
+
+.team-mechanic {
+    background-image: url('/static/images/oscar.jpg');
+}
+
+.team-technician {
+    background-image: url('/static/images/rusty.jpg');
+}
+
+.team-driver {
+    background-image: url('/static/images/jerome.jpg');
+}
+
+.team-card {
+    background-position: center;
+    background-size: cover;
+    height: 400px;
+    border-radius: 20px;
+    position: relative;
+    width: 100% !important;
+}
+
+.team-card > div {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--clr-primary);
+    width: 150px;
+    padding: 15px;
+    text-align: right;
+    border-radius: 10px;
+}
+
+.team-card div p {
+    font-size: 16px;
+    color: white;
+}
+
+.team-card div h5 {
+    color: var(--clr-yellow);
+}
+
+.team a {
+    display: block;
+    padding: 20px;
+    background: var(--clr-yellow);
+    color: var(--clr-primary);
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    margin: 10px 0px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.team a:hover {
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+}
+
+.news {
+    padding: 100px 25px 50px 25px;
+    margin: 0;
+}
+
+.news h4 {
+    color: var(--clr-yellow);
+}
+
+.news > div:nth-of-type(1) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news > div:nth-of-type(1) a {
+    padding: 20px;
+    background-color: var(--clr-primary);
+    color: var(--clr-yellow);
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    max-width: 150px;
+    text-align: center;
+}
+
+.news > div:nth-of-type(1) a:hover {
+    background-color: var(--clr-yellow);
+    color: var(--clr-primary);
+}
+
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.blog-list > div > div {
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.blog-list > div h3 {
+    margin: 20px 0px;
+}
+
+.blog-list > div p {
+    font-size: 14px;
+    color: grey;
+}
+
+.blog-list > div > div img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.blog-list > div > div > div {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    z-index: 999;
+    border-radius: 8px;
+    background-color: var(--clr-yellow);
+}
+
+.reviews {
+    padding: 50px 25px;
+    background-image:  linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/glowing-london.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 80vh;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.reviews h4 {
+    color: var(--clr-yellow);
+}
+
+.reviews h2 {
+    margin: 10px 0;
+}
+
+.reviews div:nth-of-type(1) {
+    max-width: 700px;
+    margin: 0px auto;
+}
+
+.slider {
+    width: 80%;
+    height: 350px;
+    position: absolute;
+    bottom: -75px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+}
+
+
+
+.slider > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100% !important;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    padding: 20px;
+    width: 100%;
+    height: 95%;
+    transition: 1s all ease-in-out;
+    opacity: 1;
+    background-color: var(--clr-white);
+    border-radius:  20px;
+    box-shadow: var(--light-shadow);
+    width: 95%;
+    transform: translateX(8px);
+}
+
+.slide > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    height: 100%;
+}
+
+.slider > div > div img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.slider > div > div p {
+    color: grey;
+    font-size: smaller;
+}
+
+.slider > div > div h4 {
+    color: black;
+    font-weight: bold;
+}
+
+.title {
+    color: var(--clr-yellow) !important;
+}
+
+
+.center {
+    transform: translateX(calc(100% + 45px));
+}
+
+.right {
+    transform: translateX(calc(200% + 75px));
+}
+
+.next {
+    transform: translateX(calc(300% + 120px));
+    opacity: 0 !important;
+}
+
+.prev {
+    transform: translateX(calc(-100% - 40px));
+    opacity: 0 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .team {
+        padding: 200px 100px 100px 100px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 50px;
+    }
+
+    .team > div {
+        flex-basis: 30%;
+    }
+
+    .team-card {
+        width: 30%;
+        height: 400px;
+    }
+
+    .team a {
+        width: 200px;
+    }
+
+    .news {
+        padding: 200px 100px 100px 100px;
+    }
+
+    .news > div:nth-of-type(1) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .blog-list {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .reviews {
+        padding: 100px 50px;
+    }
+
+    .slider > div > div {
+        width: 30%;
+    }
+
+}

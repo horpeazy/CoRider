@@ -109,6 +109,9 @@ nav {
 .nav-icons i {
 	display: inline-block;
 	margin-right: 5px;
+}
+
+.dot {
 	color: var(--clr-yellow);
 }
 
