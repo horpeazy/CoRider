@@ -40,20 +40,31 @@
 	animation: bounce 3s infinite;
 }
 
-.offer {
+.offer, 
+.services, 
+.reviews{
 	padding: var(--global-padding);
 	padding-top: 100px;
 	padding-bottom: 100px;
 	text-align: center;
 }
 
+.offer h2, 
+.services-intro h2, 
+.reviews h2 {
+	margin: 15px 0;
+}
 
-.offer-intro {
+.offer-intro, 
+.services-intro, 
+.reviews-intro {
 	max-width: 700px;
 	margin: auto;
 }
 
-.offer-intro span {
+.offer-intro span, 
+.services-intro span,
+.reviews-intro span {
 	color: var(--clr-yellow);
 }
 
@@ -139,6 +150,10 @@
 	height: 50px;
 }
 
+.fa-android, .fa-apple {
+	color: var(--clr-yellow);
+}
+
 .privacy-icon {
 	background: var(--clr-primary);
 	border: none;
@@ -148,13 +163,261 @@
 	height: 50px;
 }
 
-.offer h3 {
+.offer h3, 
+.services h3
+.reviews h3 {
 	color: var(--clr-yellow);
 }
 
-.offer h2 {
+.offer h2, 
+.services h2
+.reviews h2 {
 	color: var(--clr-primary);
 }
+
+.experience {
+	display: flex;
+	color: white;
+}
+
+.experience > div:nth-child(1) {
+	background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/experience.jpg');
+}
+
+.experience > div:nth-child(2) {
+	background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/taxi.jpg');
+}
+
+.experience > div:nth-child(1), .experience > div:nth-child(2) {
+	flex-basis: 50%;
+	min-height: 600px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-blend-mode: multiply;
+	padding: var(--global-padding);
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+
+.experience > div:nth-child(1) h3 {
+	color: var(--clr-yellow);
+}
+
+.experience > div:nth-child(2) {
+	position: relative;
+}
+
+.experience h2 {
+	margin: 20px 0;
+}
+
+.experience span {
+	color: var(--clr-yellow);
+}
+
+.experience-feedback {
+	background: white;
+	color: var(--clr-primary);
+	position: absolute;
+	bottom: -50px;;
+	right: 0;
+	z-index: 1;
+	padding: 30px;
+	border-radius: 10px 0 0 10px;
+	width: 70%;
+	box-shadow: var(--box-shadow);
+}
+
+.experience-feedback p {
+	font-size: 14px;
+	color: grey;
+}
+
+.experience-feedback h3 {
+	margin-bottom: 10px;
+}
+
+.progress-wrapper {
+	margin-top: 40px;
+}
+
+.progress {
+	width: 100%;
+	background: grey;
+	border-radius: 3px;
+	position: relative;
+}
+
+.progress-info {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 0 10px;
+}
+
+.bar-1, .bar-2, .bar-3, .bar-4 {
+	width: 1%;
+	height: 8px;
+	background: var(--clr-yellow);
+	border-radius: 5px;
+	margin-bottom: 8px;
+}
+
+.services-cards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 40px;
+	margin-top: 50px;
+}
+
+.services-cards h3 {
+	color: black;
+	margin: 25px 0 15px;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.services-cards p {
+	font-size: 14px;
+	color: var(--clr-primary);
+}
+
+.services-cards > div {
+	padding: 30px;
+	border-radius: 25px;
+	box-shadow: var(--box-shadow);
+	text-align: left;
+	cursor: pointer;
+}
+
+.services-cards > div i {
+	padding: 15px;
+	border-radius: 10px;
+	background: var(--clr-primary);
+	color: var(--clr-yellow);
+}
+
+.services-cards > div:hover {
+	background: var(--clr-primary);
+	color: white;
+}
+
+.services-cards > div:hover h3,
+.services-cards > div:hover p {
+	color: white;
+}
+
+.services-cards > div:hover i {
+	background: var(--clr-yellow);
+	color: var(--clr-primary);
+}
+
+.services-cards > div:nth-child(1) {
+	background: var(--clr-primary);
+}
+
+.services-cards > div:nth-child(1)  i {
+	background: var(--clr-yellow);
+	color: var(--clr-primary);
+}
+
+.services-cards > div:nth-child(1) h3,
+.services-cards > div:nth-child(1) p {
+	color: white;
+}
+
+.services-cards i {
+	font-size: 30px;
+}
+
+.reviews {
+	background: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/review.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-blend-mode: multiply;
+	color: white;
+	position: relative;
+	padding-bottom: 350px;
+}
+
+.reviews h3 {
+	color: var(--clr-yellow);
+}
+
+.reviews-slider {
+	position: absolute;
+	bottom: -75px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.reviews-slider-wrapper {
+	position: relative;
+	height: 300px;
+}
+
+.review {
+	width: 350px;
+	height: 350px;
+	position: absolute;
+	bottom: 0;
+	transform: translateX(calc(200% + 100px));
+	transition: 1s all ease-in-out;
+	box-shadow: var(--box-shadow);
+	background: white;
+	border-radius: 20px;
+	padding: 30px;
+}
+
+.review p {
+	color: grey;
+	font-size: 14px;
+	margin: 20px 0 40px;
+}
+
+.review h3 {
+	color: black;
+	font-size: 15px;
+}
+
+.review span {
+	color: var(--clr-yellow);
+}
+
+.review div {
+	position: absolute;
+	bottom: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.left {
+	transform: translateX(calc(-150% - 50px));
+}
+
+.right {
+	transform: translateX(calc(50% + 50px));
+}
+
+.current {
+	transform: translateX(-50%);
+}
+
+.prev {
+	transform: translateX(calc(-200% - 100px));
+	opacity: 0;
+}
+
+.next {
+	opacity: 0;
+}
+
+.review img {
+	width: 75px;
+	border-radius: 50%;
+}
+
 
 @keyframes bounce {
 	0% {
@@ -185,20 +448,52 @@
 		font-size: 14px;
 	}
 	
-	.offer {
+	.offer, 
+	.services {
 		padding-top: 50px;
 		padding-bottom: 50px;
+	}
+	
+	.reviews {
+		padding-top: 50px;
+	}
+	
+	.review {
+		width: 320px;
 	}
 	
 	.offer-cards-wrapper {
 		flex-direction: column;
 	}
 	
-	.offer h3 {
+	.offer h3 , 
+	.services h3,
+	.reviews h3{
 		font-size: 1rem;
 	}
 	
-	.offer h2 {
-		margin: 15px 0;
+	.experience {
+		flex-direction: column;
+	}
+	
+	.experience-feedback {
+		width: 90%;
+		border-radius: 10px;
+		margin: auto;
+		bottom: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	
+	.experience h3 {
+		font-size: 1.2rem;
+	}
+	
+	.experience-feedback p {
+		font-size: 0.8rem;
+	}
+	
+	.services-cards {
+		grid-template-columns: 1fr;
 	}
 }
