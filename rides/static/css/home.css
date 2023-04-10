@@ -1,4 +1,4 @@
-.hero {
+.home-hero {
 	min-height: calc(100vh - 100px);
 	background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/home.jpg');
 	background-size: cover;
@@ -14,26 +14,26 @@
 	text-align: left !important;
 }
 
-.hero div:nth-child(1) {
+.home-hero div:nth-child(1) {
 	padding: 30px 0;
 	flex-basis: 50%;
 	text-align: left !important;
 }
 
-.hero div:nth-child(1) p:nth-child(1), .hero span {
+.home-hero div:nth-child(1) p:nth-child(1), .home-hero span {
 	color: var(--clr-yellow);
 	font-weight: bold;
 }
 
-.hero h1 {
+.home-hero h1 {
 	margin: 15px 0;
 }
 
-.hero div:nth-child(2) {
+.home-hero div:nth-child(2) {
 	margin: auto;
 }
 
-.hero img {
+.home-hero img {
 	width: 400px;
 	height: auto;
 }
@@ -437,16 +437,16 @@
 
 
 @media (max-width: 768px) {
-	.hero {
+	.home-hero {
 		flex-direction: column;
 		padding-top: 70px;
 	}
 	
-	.hero img  {
+	.home-hero img  {
 		width: 300px;
 	}
 	
-	.hero p {
+	.home-hero p {
 		font-size: 14px;
 	}
 	

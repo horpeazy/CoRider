@@ -6,7 +6,7 @@
 	<script src="{% static 'js/slider.js' %}" defer></script>
 {% endblock %}
 {% block content %}
-<section class="hero">
+<section class="team-hero">
 	<div>
 		<h2>Team<span class="dot">.</span></h2>
 		<div>
@@ -21,7 +21,7 @@
 		<h4>Our Team</h4>
 		<h1>Meet Our Expert Team<span class="dot">.</span></h1>
 		<p>Our team is made up of experienced professionals who are passionate about providing safe, reliable, and affordable carpooling solutions.</p>
-		<a href="/team">Show All Team</a>
+		<a href="#">Show All Team</a>
 	</div>
 	<div class="team-ceo team-card">
 		<div>
@@ -54,82 +54,91 @@
 		</div>
 	</div>
 </section>
-<section class="reviews">
-	<div>
-		<h4>Customer Feedback</h4>
-		<h2>Our Customer Reviews<span class="dot">.</span></h2>
-		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit necessitatibus quaerat hic molestiae error odit praesentium aliquid tenetur, dolore cum dolores itaque, veniam ea voluptates!</p>
-	</div>
-	<div class="slider">
+<section class="reviews" >
 		<div>
-			<div class="left slide" data-id="0">
+			<h4>Customer Feedback</h4>
+			<h2>Our Customer Reviews<span class="dot">.</span></h2>
+			<p>
+			   At CoRider, we pride ourselves on providing a safe and reliable service for our customers. Our users have a consistently praised
+			   our app for its ease of use, and our friendly drivers for their professionalism and punctuality. 
+			</p>
+		</div>
+		<div class="slider">
+			<div>
+				<div class="left slide" data-id="0">
+						<div>
+							<img src="{% static 'images/review.jpg' %}" alt="reviewer-image">
+							<p>
+								I use Cargo Carpool every day for my commute, and it's been a game-changer. Not only is it more affordable than
+								driving alone, but I've met some great people and made new friends along the way. 
+							</p>
+							<div>
+								<h4>Lisa Stedman-falls</h4>
+								<p class="title">Entrepeneur</p>
+							</div>
+						</div>
+				</div>
+				<div class="center slide" data-id="1">
 					<div>
-						<img src="{% static 'images/review.jpg' %}" alt="reviewer-image">
+						<img src="{% static 'images/review2.jpg' %}" alt="reviewer-image">
 						<p>
-							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam libero sit illum, assumenda soluta non sed ipsum reiciendis delectus. Deserunt dolore aperiam reprehenderit nisi perferendis?
+							I was hesitant to try carpooling, but after a friend recommended CoRider Carppol, I decided to give it a shot. I'm so glad
+							I did! The drivers are always friendly and reliable, and I love being able to chat with fellow passengers during my
+							commute.
 						</p>
 						<div>
-							<h4>Lisa Stedman-falls</h4>
+							<h4>Carly Taylor</h4>
+							<p class="title">CEO Brand</p>
+						</div>
+					</div>
+				</div>
+				<div class="right slide" data-id="2">
+					<div>
+						<img src="{% static 'images/review3.jpg' %}" alt="reviewer-image">
+						<p>
+							As a college student on a tight budget, CoRider Carpool has been a lifesaver. It's much more affordable
+							than taking public transit or driving myself, and the drivers are always punctual and professional.
+						</p>
+						<div>
+							<h4>Xavier Mueller</h4>
 							<p class="title">Entrepeneur</p>
 						</div>
 					</div>
-			</div>
-			<div class="center slide" data-id="1">
-				<div>
-					<img src="{% static 'images/review2.jpg' %}" alt="reviewer-image">
-					<p>
-						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum earum itaque pariatur maiores velit iste officia at, vel ullam nulla explicabo quas magni quaerat asperiores.
-					</p>
+				</div>
+				<div class="next slide" data-id="3">
 					<div>
-						<h4>Carly Taylor</h4>
-						<p class="title">CEO Brand</p>
+						<img src="{% static 'images/review4.jpg' %}" alt="reviewer-image">
+						<p>
+							I've been using CoRider Carpool for my daily commute for the past few months, and I couldn't be happier with the
+							service. The app is easy to use and has never let me down, even during rush hour. 
+						</p>
+						<div>
+							<h4>Mary Kaufman</h4>
+							<p class="title">Student</p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="right slide" data-id="2">
-				<div>
-					<img src="{% static 'images/review3.jpg' %}" alt="reviewer-image">
-					<p>
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum inventore quia laudantium cupiditate, eligendi blanditiis. Voluptatem optio, doloribus aspernatur iste in necessitatibus consequuntur repudiandae rem.
-					</p>
+				<div class="prev slide" data-id="4">
 					<div>
-						<h4>Xavier Mueller</h4>
-						<p class="title">Entrepeneur</p>
-					</div>
-				</div>
-			</div>
-			<div class="next slide" data-id="3">
-				<div>
-					<img src="{% static 'images/review4.jpg' %}" alt="reviewer-image">
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, animi asperiores laboriosam dolor qui suscipit accusantium ipsa explicabo cumque perferendis atque excepturi eum vel fugit!
-					</p>
-					<div>
-						<h4>Mary Kaufman</h4>
-						<p class="title">Student</p>
-					</div>
-				</div>
-			</div>
-			<div class="prev slide" data-id="4">
-				<div>
-					<img src="{% static 'images/review5.jpg' %}" alt="reviewer-image">
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quidem blanditiis dignissimos consectetur omnis minus fuga veritatis sapiente, animi nesciunt pariatur officiis, nemo, optio laborum!
-					</p>
-					<div>
-						<h4>Jordan Peterson</h4>
-						<p class="title">Clinical Psychologist</p>
+						<img src="{% static 'images/review5.jpg' %}" alt="reviewer-image">
+						<p>
+							I travel frequently for work, and CoRider Carpool has become my go-to for getting to and from the airport. The drivers are
+							always on time and courteous, and the app makes it easy to schedule rides and track my itinerary.
+						</p>
+						<div>
+							<h4>Jordan Peterson</h4>
+							<p class="title">Clinical Psychologist</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 <section class="news">
 	<h4>Our News</h4>
 	<div>
 		<h2>Blog & Articles<span class="dot">.</span></h2>
-		<a href="">Show All News</a>
+		<a href="#">Show All News</a>
 	</div>
 	<div class="blog-list">
 		<div>
@@ -139,7 +148,8 @@
 			</div>
 			<h3>A Variety Of Safe Taxi Services On Your Way</h3>
 			<p>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem ratione, rem ducimus doloremque, animi doloribus soluta odio possimus, impedit cupiditate adipisci.
+				From ride-hailing apps to traditional taxi services, there are many safe and convenient ways to get around. Learn about the variety
+				of options available to you in this blog. <a href="#">Read...</a>
 			</p>
 		</div>
 		<div>
@@ -149,7 +159,8 @@
 			</div>
 			<h3>How To Get Discount With Your Mobile App</h3>
 			<p>
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae qui voluptatibus distinctio repellendus architecto voluptas, est, aperiam quia vero dignissimos ullam!
+				Save money with ease! Check out our tips on how to unlock exclusive discounts and deals using our mobile app. Start saving today with these
+				simple steps. <a href="#">Read...</a>
 			</p>
 		</div>
 		<div>
@@ -159,7 +170,8 @@
 			</div>
 			<h3>10 Tips To Easily Catch A Taxi In Your City</h3>
 			<p>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus repellat, animi sint odit eius reprehenderit sequi vitae nemo numquam ea nostrum.
+				Don't let the hassle of catching a taxi ruin your day. Follow these 10 tips to streamline the process and get where you need to go
+				in no time. Learn more in this blog. <a href="#">Read...</a>
 			</p>
 		</div>
 	</div>

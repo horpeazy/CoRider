@@ -1,4 +1,4 @@
-.hero {
+.about-hero {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -7,27 +7,27 @@
     background-image:  linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/about.jpg');
 }
 
-.hero div div {
+.about-hero div div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.hero > div{
+.about-hero > div{
     text-align: center;
 }
 
-.hero a {
+.about-hero a {
     color: white;
     text-decoration: none;
 }
 
-.hero > div div span {
+.about-hero > div div span {
     color: white;
 }
 
-.hero i {
+.about-hero i {
     color: var(--clr-yellow);
 }
 
@@ -269,7 +269,7 @@ h1, .ul-wrapper, p {
     bottom: 20px;
     right: 20px;
     background-color: var(--clr-primary);
-    width: 150px;
+    width: 12rem;
     padding: 15px;
     text-align: right;
     border-radius: 10px;
@@ -294,13 +294,17 @@ h1, .ul-wrapper, p {
     text-decoration: none;
     border-radius: 10px;
     margin: 10px 0px;
-    width: 150px;
+    max-width: 12rem;
     cursor: pointer;
 }
 
 .team a:hover {
     background-color: var(--clr-primary);
     color: var(--clr-yellow);
+}
+
+.counter {
+    color: black !important;
 }
 
 
@@ -409,6 +413,6 @@ h1, .ul-wrapper, p {
     }
 
     .team a {
-        width: 200px;
+        max-width: 12rem;
     }
 }

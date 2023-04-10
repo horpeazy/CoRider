@@ -1,5 +1,5 @@
 
-.hero {
+.contact-hero {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -11,27 +11,27 @@
     background-repeat: no-repeat;
 }
 
-.hero div div {
+.contact-hero div div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.hero > div{
+.contact-hero > div{
     text-align: center;
 }
 
-.hero a {
+.contact-hero a {
     color: white;
     text-decoration: none;
 }
 
-.hero > div div span {
+.contact-hero > div div span {
     color: white;
 }
 
-.hero i {
+.contact-hero i {
     color: var(--clr-yellow);
 }
 

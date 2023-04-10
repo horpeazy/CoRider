@@ -1,4 +1,4 @@
-.hero {
+.team-hero {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -10,27 +10,27 @@
     background-repeat: no-repeat;
 }
 
-.hero div div {
+.team-hero div div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.hero > div{
+.team-hero > div{
     text-align: center;
 }
 
-.hero a {
+.team-hero a {
     color: white;
     text-decoration: none;
 }
 
-.hero > div div span {
+.team-hero > div div span {
     color: white;
 }
 
-.hero i {
+.team-hero i {
     color: var(--clr-yellow);
 }
 
@@ -79,7 +79,7 @@
     bottom: 20px;
     right: 20px;
     background-color: var(--clr-primary);
-    width: 150px;
+    width: 12rem;
     padding: 15px;
     text-align: right;
     border-radius: 10px;
@@ -104,7 +104,7 @@
     text-decoration: none;
     border-radius: 10px;
     margin: 10px 0px;
-    width: 150px;
+    width: 12rem;
     cursor: pointer;
 }
 
@@ -135,7 +135,6 @@
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
-    max-width: 150px;
     text-align: center;
 }
 
@@ -188,7 +187,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    min-height: 90vh;
+    min-height: 70vh;
     text-align: center;
     color: white;
     position: relative;
@@ -308,7 +307,7 @@
     }
 
     .team a {
-        width: 200px;
+        width: 12rem;
     }
 
     .news {
@@ -328,6 +327,7 @@
 
     .reviews {
         padding: 100px 50px;
+        min-height: 90vh;
     }
 
     .slider > div > div {
