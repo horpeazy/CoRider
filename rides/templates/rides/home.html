@@ -1,11 +1,14 @@
 {% extends 'rides/main.html' %}
 {% load static %}
 {% block head %}
+	<!-- <link rel="stylesheet" href="{% static 'css/team.css' %}"/> -->
 	<link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/team.css' %}"/>
+	<script src="{% static 'js/slider.js' %}" defer></script>
 {% endblock %}
 {% block content %}
-	<section class='hero'>
-		<div>
+	<section class='hero' style="background-image: linear-gradient( to bottom , rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/home.jpg');">
+		<div style="text-align: left">
 			<p>Most trusted carpooling service</p>
 			<h1>Enjoy Your Comfortable Trip<span>.</span></h1>
 			<p>
@@ -190,90 +193,75 @@
 			</div>
 		</div>
 	</section>
-	<section class="reviews">
-		<div class="reviews-intro">
-			<h3>Customer Feedback</h3>
-			<h2>Our Customer Reviews<span>.</span></h2>
-			<p>
-				Read some of what our satisfied passengers have to say about their experience with
-				our carpooling service and see why they choose us again and again.
-			</p>
+	<section class="reviews" >
+		<div>
+			<h4>Customer Feedback</h4>
+			<h2>Our Customer Reviews<span class="dot">.</span></h2>
+			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit necessitatibus quaerat hic molestiae error odit praesentium aliquid tenetur, dolore cum dolores itaque, veniam ea voluptates!</p>
 		</div>
-		<div class="reviews-slider">
-			<div class="reviews-slider-wrapper">
-			<div class="review slide-0 left">
-				<img src="{% static 'images/review-img-1.jpg' %}" alt="review-photo" />
-				<p>
-					I've been using this carpooling app for my daily commute and it has been a game-changer
-					.The app is user-friendly and i can easily find reliable carpooling partners. 
-				</p>
-				<div>
-					<h3>Iyamu Hope</h3>
-					<span>Software Engineer</span>
+		<div class="slider">
+			<div>
+				<div class="left slide" data-id="0">
+						<div>
+							<img src="{% static 'images/review.jpg' %}" alt="reviewer-image">
+							<p>
+								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam libero sit illum, assumenda soluta non sed ipsum reiciendis delectus. Deserunt dolore aperiam reprehenderit nisi perferendis?
+							</p>
+							<div>
+								<h4>Lisa Stedman-falls</h4>
+								<p class="title">Entrepeneur</p>
+							</div>
+						</div>
 				</div>
-				<i class="fas"></i>
-			</div>
-			<div class="review slide-1 current">
-				<img src="{% static 'images/review-img-2.jpg' %}" alt="review-photo" />
-				<p>
-					I was hesitant to try carpooling at first, but this app made it so easy and convenient.
-					I've met some great people and we even take turns driving. 
-				</p>
-				<div>
-					<h3>Fred Agbon</h3>
-					<span>CEO Frednation</span>
+				<div class="center slide" data-id="1">
+					<div>
+						<img src="{% static 'images/review2.jpg' %}" alt="reviewer-image">
+						<p>
+							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum earum itaque pariatur maiores velit iste officia at, vel ullam nulla explicabo quas magni quaerat asperiores.
+						</p>
+						<div>
+							<h4>Carly Taylor</h4>
+							<p class="title">CEO Brand</p>
+						</div>
+					</div>
 				</div>
-				<i class="fas"></i>
-			</div>
-			<div class="review slide-2 right">
-				<img src="{% static 'images/review-img-3.jpg' %}" alt="review-photo" />
-				<p>
-					I love using this carpooling app! It's such a convenient and affordable way to get arounf the city.
-					I've met so many interesting people and made new friends along the way. Highly recommend it!.
-				</p>
-				<div>
-					<h3>James Ogieva</h3>
-					<span>Enterpreneur</span>
+				<div class="right slide" data-id="2">
+					<div>
+						<img src="{% static 'images/review3.jpg' %}" alt="reviewer-image">
+						<p>
+							Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum inventore quia laudantium cupiditate, eligendi blanditiis. Voluptatem optio, doloribus aspernatur iste in necessitatibus consequuntur repudiandae rem.
+						</p>
+						<div>
+							<h4>Xavier Mueller</h4>
+							<p class="title">Entrepeneur</p>
+						</div>
+					</div>
 				</div>
-				<i class="fas"></i>
-			</div>
-			<div class="review slide-3 next">
-				<img src="{% static 'images/review-img-2.jpg' %}" alt="review-photo" />
-				<p>
-					I was hesitant to try carpooling at first, but this app made it so easy and convenient.
-					I've met some great people and we even take turns driving. 
-				</p>
-				<div>
-					<h3>Michael Iyamu</h3>
-					<span>General</span>
+				<div class="next slide" data-id="3">
+					<div>
+						<img src="{% static 'images/review4.jpg' %}" alt="reviewer-image">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, animi asperiores laboriosam dolor qui suscipit accusantium ipsa explicabo cumque perferendis atque excepturi eum vel fugit!
+						</p>
+						<div>
+							<h4>Mary Kaufman</h4>
+							<p class="title">Student</p>
+						</div>
+					</div>
 				</div>
-				<i class="fas"></i>
-			</div>
-			<div class="review slide-4 next">
-				<img src="{% static 'images/review-img-1.jpg' %}" alt="review-photo" />
-				<p>
-					I love using this carpooling app! It's such a convenient and affordable way to get arounf the city.
-					I've met so many interesting people and made new friends along the way. 
-				</p>
-				<div>
-					<h3>John Ogieva</h3>
-					<span>Physicist</span>
+				<div class="prev slide" data-id="4">
+					<div>
+						<img src="{% static 'images/review5.jpg' %}" alt="reviewer-image">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quidem blanditiis dignissimos consectetur omnis minus fuga veritatis sapiente, animi nesciunt pariatur officiis, nemo, optio laborum!
+						</p>
+						<div>
+							<h4>Jordan Peterson</h4>
+							<p class="title">Clinical Psychologist</p>
+						</div>
+					</div>
 				</div>
-				<i class="fas"></i>
 			</div>
-			<div class="review slide-5 prev">
-				<img src="{% static 'images/review-img-3.jpg' %}" alt="review-photo" />
-				<p>
-					I've been using this carpooling app for my daily commute and it has been a game-changer
-					.The app is user-friendly and i can easily find reliable carpooling partners.
-				</p>
-				<div>
-					<h3>Efos Denge</h3>
-					<span>Enterpreneur</span>
-				</div>
-				<i class="fas"></i>
-			</div>
-		</div>
 		</div>
 	</section>
 	<script>
@@ -332,7 +320,7 @@
 		observer.observe(progressWrapper);
 	</script>
 	
-	<script>
+	<!-- <script>
 		let current = 1;
 		let left, right, next, prev;
 		
@@ -382,5 +370,5 @@
 			
 			current = right;
 		}
-	</script>
+	</script> -->
 {% endblock %}

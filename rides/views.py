@@ -32,3 +32,10 @@ def team(request):
     	'cache_id': uuid.uuid4()
     }
     return render(request, 'rides/team.html', { 'context': context })
+
+def services(request):
+    context = {
+    	'title': 'Services',
+    	'cache_id': uuid.uuid4()
+    }
+    return render(request, 'rides/services.html', { 'context': context })
