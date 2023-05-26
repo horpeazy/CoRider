@@ -1,0 +1,141 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block content %}
+	<section class="account">
+		<div class="info">
+			{% if user.profile_picture %}
+				<img src="{{ user.profile_picture.url }}" alt="profile-picture" />
+			{% else %}
+				<img src="/static/images/CEO.jpg" alt="profile-picture" />
+			{% endif %}
+			<h3>{{ user.username }}</h3>
+			{% if user.verified %}
+					<p class="verified">Verified Profile <i class="fa fa-award"></i></p>
+				{% else %}
+					<p class="not-verified">Not Verified<i class="fa fa-cancel"></i></p>
+				{% endif %}
+			<div class="stat">
+				<div>
+					<h3>{{ user.total_rides }}</h3>	
+					<p>total rides</p>
+				</div>
+				<div>
+					<h3>{{ user.as_driver}}</h3>
+					<p>as driver</p>
+				</div>
+				<div>
+					<h3>{{ user.as_passenger }}</h3>
+					<p>as passenger</p>
+				</div>
+			</div>
+			<div class="ratings">
+				<div>
+					<i class="fa fa-star"></i>
+					{% if user.rating %}
+						<h3>{{ user.rating }}</h3>
+					{% else %}
+						<h3>0</h3>
+					{% endif %}
+				</div>
+				<div>
+					<i class="fa fa-clock"></i>
+					{% if user.availability %}
+						<h3>{{ user.availability }}%</h3>
+					{% else %}
+						<h3>100%</h3>
+					{% endif %}
+				</div>
+			</div>
+			
+		</div>
+		<div class="card-links">
+			<ul>
+				<li>
+					<a href="/reviews/{{ user.username }}">
+						<span><i class="fas fa-comment"></i></span>
+						<span>Reviews<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="about">
+			<div>
+				<h2>About</h2>
+				<div>
+					<h3>Contact Information</h3>
+					<ul>
+						<li>
+							<p>Phone</p>
+							{% if user.phone_number %}
+								<p>{{ user.phone_number }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+				<div>
+					<h3>Basic Information</h3>
+					<ul>
+						<li>
+							<p>Gender</p>
+							{% if user.gender %}
+								<p>{{ user.gender }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+				<div>
+					<h3>Vehicle Information</h3>
+					<ul>
+						<li>
+							<p>Make</p>
+							{% if vehicle.make %}
+								<p>{{ vehicle.make }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+						<li>
+							<p>Model</p>
+							{% if vehicle.model %}
+								<p>{{ vehicle.model }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+						<li>
+							<p>Color</p>
+							{% if vehicle.color %}
+								<p>{{ vehicle.color }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+						<li>
+							<p>Plate Number</p>
+							{% if vehicle.plate_number %}
+								<p>{{ vehicle.plate_number }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+						<li>
+							<p>Driver's License ID</p>
+							{% if user.driver_id  %}
+								<p>{{ user.driver_id  }}</p>
+							{% else %}
+								<p>(nil)</p>
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

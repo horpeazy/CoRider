@@ -1,0 +1,390 @@
+{% extends "rides/main.html" %}
+{% block head %}
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/ride-detail.css' %}">
+	<script src="{% static 'js/review.js' %}" defer></script>
+	<script src="{% static 'js/review-map.js' %}" defer></script>
+	<script>
+		const startLat = '{{ ride.origin_lat }}'
+		const startLon = '{{ ride.origin_lon }}'
+		const endLat = '{{ ride.destination_lat }}'
+		const endLon = '{{ ride.destination_lon }}'
+		const trip = '{{ ride }}'
+	</script>
+{% endblock %}
+{% block content %}
+<div class="body">
+	<div class="ride-detail-container">
+	<div class="map-wrapper">
+		<div id="map" style="width: 100%; height: 100%"></div>
+	</div>
+	<div class="ride-detail-wrapper">
+		<h2>Ride Details</h2>
+		<div>
+		<p>
+			<span>Date </span>
+			<span>{{ ride.created_at }}</span>
+		</p>
+		<p>
+			<span>Destination </span>
+			<span>{{ ride.destination }}</span>
+		</p>
+		<p>
+			<span>From</span>
+			<span>{{ ride.origin }}</span>
+		</p>
+		<p>
+			<span>Driver </span>
+			<span>{% if ride.driver %} {{ ride.driver.user.first_name }} {{ ride.driver.user.last_name }}{% else %} No driver {% endif %}</span>
+		</p>
+		<p>
+			<span>Role</span>
+			<span>{{ ride.role }}</span>
+		</p>
+		<p>
+			<span>Status </span>
+			<span>{{ ride.status|upper }}</span>
+		</p>
+		</div>
+	</div>
+	
+	<div>
+	{% if ride.requests and ride.status == 'pending' %}
+		<h2>Match Requests</h2>
+		{% for match in ride.requests %}
+			<div class="match-wrapper">
+  					<div class="match-info">
+  						<div>
+  						  <img src="{{ match.user.profile_picture.url }}" alt="" />
+  						  <div>
+  						    <h2>{{ match.user.username }}</h2>
+  						    <div>
+  						      <i class="fa fa-star"></i>
+  						      <span>{{ match.user.rating }}</span>
+  						      {% if match.user.role == 'driver' %}
+  						        <i class="fa fa-car"></i>
+  						      {% else %}
+  						        <i class="fa fa-person"></i>
+  						      {% endif %}
+  						    </div>
+  						  </div>
+  						</div>
+    						<div class="match-details">
+      							<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      						</div>
+    					</div>
+    					<div class="match-actions">
+    						<a href="/match/?role={{ ride.role }}&ride_id={{ ride.id }}&match_id={{ match.id }}" class="profile-btn">
+      							Accept
+    						</a>
+    						<a href="/decline/?role={{ ride.role }}&ride_id={{ ride.id }}&match_id={{ match.id }}" class="profile-btn reject-btn">
+      							Decline
+    						</a>
+					</div>
+  			</div>
+		{% endfor %}
+	{% endif %}
+	</div>
+	
+	<div style="margin-top: 50px;">
+		{% if ride.role == "passenger" %}
+			{% if ride.status == "started" or ride.status == "pending" %}
+				{% if ride.driver %}
+					<h2>Driver</h2>
+					<div class="match-wrapper">
+  						<div class="match-info">
+    							<div>
+  						  		<img src="{{ ride.driver.user.profile_picture.url }}" alt="" />
+  						  		<div>
+  						    			<h2>{{ ride.driver.user.username }}</h2>
+  						    			<div>
+  						      				<i class="fa fa-star"></i>
+  						      				<span>{{ ride.driver.user.rating }}</span>
+  						      				<i class="fa fa-car"></i>
+  						    			</div>
+  						  		</div>
+  							</div>
+    							<div class="match-details">
+      								<div><i class="fas fa-map-marker-alt"></i>{{ ride.driver.origin }} --- {{ ride.driver.destination }}</div>
+      								<div style="margin-top: 20px;">
+      									<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      									{% if ride.driver.status == "ended" %}
+      										<span style="text-transform: uppercase; color: red;">{{ ride.driver.status }}</span>
+      									{% else %}
+      										<span style="text-transform: uppercase; color: green;">{{ ride.driver.status }}</span>
+      									{% endif %}
+      								</div>
+      							</div>
+    						</div>
+  					</div>
+					<div class="match-actions end-ride-wrapper">
+    						<a href="/end-ride/?ride_id={{ ride.id }}" class="end-ride-btn">
+      							End Ride
+  						</a>
+					</div>
+				{% else %}
+					<h2>Available Drivers</h2>
+					{% if matches %}
+						{% for match in matches %}
+							<div class="match-wrapper request">
+  								<div class="match-info">
+    									<div>
+  						  				<img src="{{ match.profile_picture }}" alt="" />
+  						  				<div>
+  						    					<h2>{{ match.username }}</h2>
+  						    					<div>
+  						      						<i class="fa fa-star"></i>
+  						      						<span>{{ match.rating }}</span>
+  						      						<i class="fa fa-car"></i>
+  						    					</div>
+  						  				</div>
+  									</div>
+    									<div class="match-details">
+      										<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      									</div>
+      									<div>
+      										<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      										{% if ride.driver.status == "ended" %}
+      											<span style="text-transform: uppercase; color: red;"> {{ match.status }}</span>
+      										{% else %}
+      											<span style="text-transform: uppercase; color: green;"> {{ match.status }}</span>
+      										{% endif %}
+      									</div>
+      									<div><i class="fas fa-percent"></i>{{ match.match_rate }}% match</div>
+      								</div>
+      								<div class="match-actions request-wrapper">
+    									<a href="/request/?ride_id={{ ride.id }}&match_id={{ match.id }}" class="request-btn">
+      										Request
+    									</a>
+    									
+								</div>
+    							</div>
+						{% endfor %}
+					{% else %}
+						<p style="text-align: center">Sorry, no driver available yet.</p>
+					{% endif %}
+					<div class="match-actions end-ride-wrapper">
+    						<a href="/end-ride/?ride_id={{ ride.id }}" class="end-ride-btn">
+      							End Ride
+  						</a>
+					</div>
+				{% endif %}
+			{% else %}
+				{% if ride.driver %}
+					<h2>Driver</h2>
+					<div class="match-wrapper">
+  						<div class="match-info">
+    							<div>
+  						  		<img src="{{ ride.driver.user.profile_picture.url }}" alt="" />
+  								<div>
+  						    			<h2>{{ ride.driver.user.username }}</h2>
+  						    			<div>
+  						    				<i class="fa fa-star"></i>
+  						      				<span>{{ ride.driver.user.rating }}</span>
+  						      				<i class="fa fa-car"></i>
+  						    			</div>
+  						  		</div>
+  							</div>
+    							<div class="match-details">
+      								<div><i class="fas fa-map-marker-alt"></i> {{ ride.driver.origin }} ---{{ ride.driver.destination }}</div>
+      								<div>
+      									<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      									{% if ride.driver.status == "ended" %}
+      										<span style="text-transform: uppercase; color: red;">{{ ride.driver.status }}</span>
+      									{% else %}
+      										<span style="text-transform: uppercase; color: green;">{{ ride.driver.status }}</span>
+      									{% endif %}
+      								</div>
+      							</div>
+    						</div>
+  					</div>
+				{% endif %}
+			{% endif %}
+		{% else %}
+			{% if ride.status == "started" or ride.status == "pending" %}
+				{% if ride.passengers %}
+					<h2>Passengers</h2>
+					{% if ride.passengers.length < 1 %}
+					<div style="text-align: center;">No passengers.</div>
+					{% else %}
+					<div class="results" style="margin-bottom: 100px;">
+						{% for match in ride.passengers %}
+							<div class="match-wrapper match-wrapper-request">
+  								<div class="match-info">
+    									<div>
+  						  				<img src="{{ match.user.profile_picture.url }}" alt="" />
+  						  				<div>
+  						    					<h2>{{ match.user.username }}</h2>
+  						    					<div>
+  						      						<i class="fa fa-star"></i>
+  						      						<span>{{ match.user.rating }}</span>
+  						      						<i class="fa fa-person"></i>
+  						    					</div>
+  						  				</div>
+  									</div>
+    									<div class="match-details">
+      										<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      									</div>
+      									<div>
+      										<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      										{% if match.status == "ended" %}
+      											<span style="text-transform: uppercase; color: red;"> {{ match.status }}</span>
+      										{% else %}
+      											<span style="text-transform: uppercase; color: green;"> {{ match.status }}</span>
+      										{% endif %}
+      									</div>
+      								</div>
+      								<div class="match-actions">
+    									<a class="l-review-btn" data-user-id="{{ match.user.id }}" data-ride-id="{{ match.id }}" data-user-ride-id="{{ ride.id }}">
+      									    Review
+    									</a>
+								</div>
+    							</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+				{% endif %}
+				<h2>Available passengers</h2>
+					{% if matches %}	
+						{% for match in matches %}
+							<div class="match-wrapper request">
+  								<div class="match-info">
+    									<div>
+  						  				<img src="{{ match.profile_picture }}" alt="" />
+  						  				<div>
+  						    					<h2>{{ match.username }}</h2>
+  						    					<div>
+  						      						<i class="fa fa-star"></i>
+  						      						<span>{{ match.rating }}</span>
+  						      						<i class="fa fa-person"></i>
+  						    					</div>
+  						  				</div>
+  									</div>
+    									<div class="match-details">
+      										<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      									</div>
+      									<div>
+      										<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      										{% if ride.driver.status == "ended" %}
+      											<span style="text-transform: uppercase; color: red;"> {{ match.status }}</span>
+      										{% else %}
+      											<span style="text-transform: uppercase; color: green;"> {{ match.status }}</span>
+      										{% endif %}
+      									</div>
+      									<div><i class="fas fa-percent"></i>{{ match.match_rate }}% match</div>
+      								</div>
+      								<div class="match-actions request-wrapper">
+    									<a href="/request/?ride_id={{ ride.id }}&match_id={{ match.id }}" class="request-btn">
+      										Offer Ride
+    									</a>
+								</div>
+    							</div>
+						{% endfor %}
+					{% else %}
+						<p style="text-align: center;">Sorry, no passenger available yet.</p>
+					{% endif %}
+				<div class="match-actions end-ride-wrapper">
+    					<a href="/end-ride/?ride_id={{ ride.id }}" class="end-ride-btn-alt">
+      						End Ride
+  					</a>
+				</div>
+			{% else %}
+				<h2>Passengers</h2>
+				{% if ride.passengers %}
+						{% for match in ride.passengers %}
+							<div class="match-wrapper">
+  								<div class="match-info">
+    									<div>
+  						  				<img src="{{ match.user.profile_picture.url }}" alt="" />
+  						  				<div>
+  						    					<h2>{{ match.user.username }}</h2>
+  						    					<div>
+  						      						<i class="fa fa-star"></i>
+  						      						<span>{{ match.user.rating }}</span>
+  						      						<i class="fa fa-person"></i>
+  						    					</div>
+  						  				</div>
+  									</div>
+    									<div class="match-details">
+      										<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      									</div>
+      									<div>
+      										<i class="fas fa-status-alt"></i><span style="font-weight: bold; color: black;">STATUS:  &nbsp </span>
+      										{% if match.driver.status == "ended" %}
+      											<span style="text-transform: uppercase; color: red;"> {{ match.status }}</span>
+      										{% else %}
+      											<span style="text-transform: uppercase; color: green;"> {{ match.status }}</span>
+      										{% endif %}
+      									</div>
+      								</div>
+    							</div>
+						{% endfor %}
+				{% else %}
+					<div style="text-align: center;">No passengers.</div>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	</div>
+	
+	</div>
+</div>
+
+<div class="review-wrapper">	
+	<div class="review">
+		<button class="close-review"><i class="fa fa-close"></i></button>
+		<form method="post" action="/end-ride/">
+			{% csrf_token %}
+			<h2 style="margin-bottom: 0px; margin-top: 0px;">Leave a review</h2>	
+			<input hidden value="{{ ride.id }}" name="ride_id"></input>
+			{% if ride.role == "passenger" %}
+				<input hidden value="{{ ride.driver.user.username }}" name="driver"></input>
+			{% endif %}
+			<input hidden name="rating" id="id_rating"></input>
+			<textarea placeholder="Enter review here (optional)" name="review"></textarea>
+			<div class="rating">
+				<p>Rating:</p>
+				<ul>
+					<li ><i class="fa fa-star rating-star"></i></li>
+					<li ><i class="fa fa-star rating-star"></i></li>
+					<li ><i class="fa fa-star rating-star"></i></li>
+					<li ><i class="fa fa-star rating-star"></i></li>
+					<li ><i class="fa fa-star rating-star"></i></li>
+				</ul>
+			</div>
+			<button class="review-btn"><span><i class="fa fa-paper-plane"></i></span><span>Submit</span></button>
+		</form>
+	</div>	
+</div>
+
+<div class="l-review-wrapper">	
+	<div class="l-review">
+		<button class="l-close-review"><i class="fa fa-close"></i></button>
+		<!-- <form>
+			<h2 style="margin-bottom: 0px; margin-top: 0px;">Leave a review</h2>
+			<textarea placeholder="Enter review here (optional)" name="review" class="review-text"></textarea>
+			<button class="c-review-btn l-review-btn review-btn">Submit</button>
+		</form> -->
+		
+		<form method="post" action="/end-ride/">
+			<h2 style="margin-bottom: 0px; margin-top: 0px;">Leave a review</h2>
+			<textarea placeholder="Enter review here (optional)" name="review" class="review-text"></textarea>
+			<input hidden name="rating" id="id_rating_2"></input>
+			<div class="rating">
+				<p>Rating:</p>
+				<ul>
+					<li ><i class="fa fa-star rating-star-2"></i></li>
+					<li ><i class="fa fa-star rating-star-2"></i></li>
+					<li ><i class="fa fa-star rating-star-2"></i></li>
+					<li ><i class="fa fa-star rating-star-2"></i></li>
+					<li ><i class="fa fa-star rating-star-2"></i></li>
+				</ul>
+			</div>
+			<button class="c-review-btn review-btn"><span><i class="fa fa-paper-plane"></i></span><span>Submit</span></button>
+		</form>
+	</div>	
+</div> 
+
+{% endblock %}

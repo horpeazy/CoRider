@@ -1,0 +1,96 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
+    	
+    <!-- Direction API -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css">
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{% static 'css/ride-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ride.css' %}"> 
+    <script src="{% static 'js/ride.js' %}" defer></script>
+    <style>
+        .location {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            padding: 20px;
+        }
+        
+        .spinner-box {
+        	display: flex;
+        	justify-content: center;
+        	align-items: center;
+        	width: 100%;
+        	height: 100%;
+        }
+        
+        #spinner {
+        	border: 8px solid #f3f3f3;
+        	border-top: 8px solid #FDB813;
+        	border-radius: 50%;
+        	width: 50px;
+        	height: 50px;
+        	animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+        	0% { transform: rotate(0deg); }
+        	100% { transform: rotate(360deg); }
+        }
+        
+        @media and screen (min-width: 768px) {
+        	#spinner {
+        		border: 15px solid #f3f3f3;
+        		border-top: 15px solid #FDB813;
+        		width: 120px;
+        		height: 120px;
+        	}
+        }
+    </style>
+{% endblock %}
+{% block content %}
+<section class="ride-container">
+    <div>
+        <div class="position-relative h-100 w-100">
+            <div id='map'>
+                <div class="ride-options">
+                    <div><span><i class="fa fa-person"></i></span></div>
+                    <div><span><i class="fa fa-car"></i></span></div>
+                    <div><span><i class="fa fa-search"></i></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="search">
+    <div>
+        <button onclick="hide()">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div>
+        <div class="search-wrapper">
+            <input type="search" name="destination" class="destination"/>
+            <ul class="locations">
+            <ul>
+        </div>
+    </div>
+</section>
+<section class="results-wrapper" >
+	<div>
+		<button onClick="hideResults()">
+			<i class="fa fa-close"></i>
+		</button>
+		<div class="match-result">
+	
+		</div>
+	</div>
+</section>
+{% endblock %}

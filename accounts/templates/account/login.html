@@ -1,0 +1,34 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/account-main.css' %}">
+{% endblock %}
+{% block content %}
+	<section class="login-form-wrapper">
+	<div>
+		<div>
+			<h2>Welcome Back!</h2>
+			<p>Don't have an account? <a href="/accounts/register">Sign Up Now!</a></p>
+		</div>
+		{% if form.errors %}
+		<div class="alert alert-danger" role="alert">
+			{{ form.errors }}
+		</div>
+		{% endif %}
+		<form method="post" >
+			{% csrf_token %}
+			<p class="form-group">
+        		<label for="{{ form.username.id_for_label }}">Username</label>
+        		{{ form.username|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ form.password.id_for_label }}">Password</label>
+        		{{ form.password|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+			<div><a href="#">Forgot Password?</a></div>
+			<button type="submit" class="login-btn">Sign in</button>
+		</form>
+	</div>
+	</section>
+{% endblock %}

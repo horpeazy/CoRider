@@ -26,7 +26,7 @@ SECRET_KEY = os.urandom(32)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     # Custom apps
     'rides',
     'api',
+    'accounts',
+    'widget_tweaks',
     
     # Django apps
     'django.contrib.admin',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +84,12 @@ WSGI_APPLICATION = 'corider.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+      	'NAME': os.environ.get('DATABASE_NAME'),
+      	'USER':  os.environ.get('DATABASE_USER'),
+      	'PASSWORD': os.environ.get('DATABASE_USER_PWD'),
+      	'HOST': os.environ.get('DATABASE_HOST'),
+       	'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -124,8 +131,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# User model
+
+AUTH_USER_MODEL = 'accounts.User'

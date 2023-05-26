@@ -1,0 +1,328 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/account.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+	<script src="{% static 'js/account.css' %}" defer></script>
+{% endblock %}
+{% block content %}
+	<section class="account-container">
+	<div>
+	<div class="account-wrapper">
+		<div class="intro-section">
+			<div>
+				{% if user.profile_picture %}
+					<img src="{{ user.profile_picture.url }}" alt="" />
+				{% else %}
+					<img src="/static/images/CEO.jpg" alt="" />
+				{% endif %}
+			</div>
+			<div>
+				<h3>
+					{{ user.username }}
+					{% if user.verified %}
+						<span class="verified"><i class="fa fa-award"></i></span>
+					{% else %}
+						<span class="not-verified"><i class="fa fa-cancel"></i></span>
+					{% endif %}
+				</h3>
+				<div class="phone">
+					<i class="fa fa-phone"></i>
+					{% if user.phone_number %}
+						<p>{{ user.phone_number }}</p>
+					{% else %}
+						<p>No phone number</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		
+		<div class="card personal-card">
+			<h4>Personal Information</h4>
+			<div>
+				<p>Your name, email address, Driver's ID</p>
+				<i class="fa fa-chevron-right"></i>
+			</div>
+		</div>
+		
+		<div class="card vehicle-card">
+			<h4>Vehicle Information</h4>
+			<div>
+				<p>Vehicle make, model, color</p>
+				<i class="fa fa-chevron-right"></i>
+			</div>
+		</div>
+		
+		<div class="card-links">
+			<ul>
+				<li>
+					<a href="/rides">
+						<span><i class="fas fa-car"></i></span>
+						<span>Rides<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/reviews">
+						<span><i class="fas fa-comment"></i></span>
+						<span>Reviews<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/account/edit">
+						<span><i class="fas fa-user-edit"></i></span>
+						<span>Edit Profile<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/services#faq">
+						<span><i class="fas fa-question-circle"></i></span>
+						<span>Frequently Asked Questions<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/terms">
+						<span><i class="fas fa-file-alt"></i></span>
+						<span>Terms<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/contact">
+						<span><i class="fas fa-headset"></i></span>
+						<span>Contact support<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+				<li>
+					<a href="/accounts/logout">
+						<span><i class="fas fa-sign-out-alt"></i></span>
+						<span>Log out<i class="fa fa-chevron-right"></i></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+		<div class="account-detail">
+			<div>
+				<div class="back"><i class="fas fa-angle-left"></i></div>
+				<div class="account-info">
+					<div class="info">
+						<a href="/account/edit" class="edit"><i class="fa fa-pen"></i></a>
+						<div class="image-wrapper">
+							{% if user.profile_picture %}
+								<img src="{{ user.profile_picture.url }}" alt="profile-picture">
+							{% else %}
+								<img src="{% static 'images/CEO.jpg' %}" alt="profile-picture">
+							{% endif %}
+						</div>
+						<h3>{{ user.username }}</h3>
+						{% if user.verified %}
+							<p class="verified">Verified Profile <i class="fa fa-award"></i></p>
+						{% else %}
+							<p class="not-verified">Not Verified<i class="fa fa-cancel"></i></p>
+						{% endif %}
+					<div class="stat">
+						<div>
+							<h3>{{ user.total_rides }}</h3>	
+							<p>total rides</p>
+						</div>
+						<div>
+							<h3>{{ user.as_driver}}</h3>
+							<p>as driver</p>
+						</div>
+						<div>
+							<h3>{{ user.as_passenger }}</h3>
+							<p>as passenger</p>
+						</div>
+					</div>
+					<div class="ratings">
+						<div>
+							<i class="fa fa-star"></i>
+							{% if user.rating %}
+								<h3>{{ user.rating }}</h3>
+							{% else %}
+								<h3>0</h3>
+							{% endif %}
+						</div>
+						<div>
+							<i class="fa fa-clock"></i>
+							{% if user.availability %}
+								<h3>{{ user.availability }}%</h3>
+							{% else %}
+								<h3>0%</h3>
+							{% endif %}
+						</div>
+				</div>
+				<div class="about">
+					<ul>
+						<li>
+							<div>
+								<i class="fa fa-user"></i>
+							</div>	
+							<div>
+								<h4>Full Name</h4>
+								{% if user.first_name %}
+									<p>{{ user.first_name }} {{ user.last_name}}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-phone"></i>
+							</div>	
+							<div>
+							<h4>Phone</h4>
+								{% if user.phone_number %}
+									<p>{{ user.phone_number }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-envelope"></i>
+							</div>	
+							<div>
+							<h4>Email</h4>
+								{% if user.email %}
+									<p>{{ user.email }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-venus-mars"></i>
+							</div>	
+							<div>
+								<h4>Gender</h4>
+								{% if user.gender %}
+									<p>{{ user.gender }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-birthday-cake"></i>
+							</div>	
+							<div>
+								<h4>Birthday</h4>
+								{% if user.birthday %}
+									<p>{{ user.birthday }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-map-marker"></i>
+							</div>	
+							<div>
+								<h4>Address</h4>
+								{% if user.address %}
+									<p>{{ user.address }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-map-pin"></i>
+							</div>	
+							<div>
+								<h4>Zip Code</h4>
+								{% if user.zip_code %}
+									<p>{{ user.zip_code }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fas fa-id-card"></i>
+							</div>	
+							<div>
+								<h4>Driver's License ID</h4>
+								{% if user.driver_id %}
+									<p>{{ user.driver_id }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</div>
+				<div class="vehicle-info">
+					<a href="/account/edit#vehicle" class="edit"><i class="fa fa-pen"></i></a>
+					<h3>Vehicle Information</h3>
+					<ul>
+						<li>
+							<div>
+								<i class="fa fa-cog"></i>
+							</div>	
+							<div>
+								<h4>Make</h4>
+								{% if vehicle.make %}
+									<p>{{ vehicle.make }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-car"></i>
+							</div>
+							<div>
+								<h4>Model</h4>
+								{% if vehicle.model %}
+									<p>{{ vehicle.model }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-palette"></i>
+							</div>
+							<div>
+								<h4>Color</h4>
+								{% if vehicle.color %}
+									<p>{{ vehicle.color }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+						<li>
+							<div>
+								<i class="fa fa-id-badge"></i>
+							</div>
+							<div>
+								<h4>Plate Number</h4>
+								{% if vehicle.plate_number %}
+									<p>{{ vehicle.plate_number }}</p>
+								{% else %}
+									<p>(nil)</p>
+								{% endif %}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+{% endblock %}

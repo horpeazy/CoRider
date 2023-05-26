@@ -1,0 +1,103 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/account-main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/edit-account.css' %}">
+	<script src="{% static 'js/edit-account.js' %}" defer></script>
+{% endblock %}
+{% block content %}
+	<section class="edit-account">
+		<div>
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<p class="profile-image">
+				{% if request.user.profile_picture %}
+        			<img src="{{ request.user.profile_picture.url }}" alt="profile picture" width='100' height='100' class="profile-picture"/>
+        		{% else %}
+        			<img src="/static/images/CEO.jpg" alt="profile picture" width='100' height='100' class="profile-picture"/>
+        		{% endif %}
+        		{% if account_form.errors %}
+					<span class="change-avatar" style="color: red;">profile picture is required</span>
+				{% endif %}
+        		<span class="change-avatar" onClick="document.querySelector('#id_profile_picture').click()">Change Avatar</span>
+        		<input type="file" name="profile_picture" accept="image/*" class="hidden" id="id_profile_picture">
+    		</p>
+    		<div class="alert alert-danger account-errors" role="alert"></div>
+			<p class="form-group">
+        		<label for="{{ account_form.first_name.id_for_label }}">First Name<span class="req">*</span></label>
+        		{{ account_form.first_name|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ account_form.last_name.id_for_label }}">Last Name<span class="req">*</span></label>
+        		{{ account_form.last_name|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<div class="form-col">
+    		<p class="form-group">
+        		<label for="{{ account_form.gender.id_for_label }}">Gender<span class="req">*</span></label>
+        		{{ account_form.gender|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ account_form.birthday.id_for_label }}">Birthday</label>
+        		{{ account_form.birthday|attr:"class:form-control" }}
+    		</p>
+    		</div>
+    		<p class="form-group">
+        		<label for="{{ account_form.email.id_for_label }}">Email</label>
+        		{{ account_form.email|attr:"class:form-control" }}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ account_form.phone_number.id_for_label }}">Phone Number<span class="req">*</span></label>
+        		{{ account_form.phone_number|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ account_form.address.id_for_label }}">Address<span class="req">*</span></label>
+        		{{ account_form.address|attr:"class:form-control"|attr:"required:true" }}
+    		</p>
+    		<div class="form-col">
+    		<p class="form-group">
+        		<label for="{{ account_form.zip_code.id_for_label }}">Zip Code</label>
+        		{{ account_form.zip_code|attr:"class:form-control"}}
+    		</p>
+    		<p class="form-group">
+        		<label for="{{ account_form.driver_id.id_for_label }}">Driver's License ID</label>
+        		{{ account_form.driver_id|attr:"class:form-control" }}
+    		</p>
+    		</div>
+    		
+		
+		<h3 id="vehicle">Vehicle Information</h3>
+		<div class="alert alert-danger vehicle-errors" role="alert"></div>
+		
+			{% csrf_token %}
+			{% if vehicle_form.errors %}
+				<div class="alert alert-danger" role="alert">
+					{{ vehicle_form.errors }}
+				</div>
+			{% endif %}
+			<div class="form-col">
+				<p class="form-group">
+					<label for="{{ vehicle_form.make.id_for_label }}">Make</label>
+					{{ vehicle_form.make|attr:"class:form-control"}}
+				</p>
+				<p class="form-group">
+					<label for="{{ vehicle_form.model.id_for_label }}">Model</label>
+					{{ vehicle_form.model|attr:"class:form-control"}}
+				</p>
+			</div>
+			<div class="form-col">
+				<p class="form-group">
+					<label for="{{ vehicle_form.color.id_for_label }}">Color</label>
+					{{ vehicle_form.color|attr:"class:form-control" }}
+				</p>
+				<p class="form-group">
+					<label for="{{ vehicle_form.plate_number.id_for_label }}">Plate Number</label>
+					{{ vehicle_form.plate_number|attr:"class:form-control" }}
+				</p>
+			</div>
+			<button type="submit" class="save-btn">Update</button>
+		</form>
+		
+		</div>
+	</section>
+{% endblock %}

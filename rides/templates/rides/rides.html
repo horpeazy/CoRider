@@ -1,0 +1,41 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/rides.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="rides">
+	<div>
+    <h2>Ride History</h2>
+	{% if rides %}
+		{% for ride in rides %}
+			<div class="ride-container">
+				<p><i class="fas fa-map-marker-alt"></i>{{ ride.origin }} --- {{ ride.destination }}</p>
+				<div>
+					{% if ride.role == 'passenger' %}
+						<p><i class="fa fa-person"></i>Passenger</p>
+					{% else %}
+						<p><i class="fa fa-car"></i>Driver</p>
+					{% endif %}
+					{% if ride.status == 'ended' %}
+						<p class="inactive"><i class="fa fa-stop-circle"></i>{{ ride.status }}</p>
+					{% elif  ride.status == 'started' %}
+						<p class="active"><i class="fa fa-play-circle"></i>{{ ride.status }}</p>
+					{% else %}
+						<p class="active"><i class="fa fa-hourglass-half"></i>{{ ride.status }}</p>
+					{% endif %}
+				</div>
+				<p><i class="far fa-clock"></i>{{ ride.created_at }}</p>
+				<a href="/ride-detail/{{ ride.id }}"><span>View</span><i class="fa fa-eye"></i></a>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-rides">
+			<p>You have no rides.</p>
+		</div>
+	{% endif %}
+	</div>
+</section>
+{% endblock %}
+
+

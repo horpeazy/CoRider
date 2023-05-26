@@ -1,5 +1,6 @@
 {% extends 'rides/main.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/contact.css' %}">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
@@ -45,7 +46,7 @@
 						<span><i class="fas fa-envelope"></i></span>
 						<div>
 							<span>Email</span>
-							<p>corider@hopeiyamu.tech</p>
+							<p>contact@hopeiyamu.tech</p>
 						</div>
 					</li>
 				</ul>
@@ -54,36 +55,39 @@
 						Social Media:
 					</div>
 					<div>
-						<i class="fab fa-brand fa-facebook"></i>
-						<i class="fab fa-brand fa-instagram"></i>
-						<i class="fab fa-brand fa-whatsapp"></i>
-						<i class="fab fa-brand fa-youtube"></i>
+						<a href="https://linkedin.com/in/iyamuhope"><i class="fab fa-brand fa-linkedin"></i></a>
+						<a href="https://instagram.com/horpeazy"><i class="fab fa-brand fa-instagram"></i></a>
+						<a href=""><i class="fab fa-brand fa-whatsapp"></i></a>
+						<a href="https://youtube.com/horpeazy"><i class="fab fa-brand fa-youtube"></i></a>
 					</div>
 				</div>
 			</div>
 			<div>
 				<form method="post" action="">
 					{% csrf_token %}
+					{% if form.errors %}
+						{{ form.errors }}
+					{% endif %}
 					<div class="form-group">
 						<div>
-							<label for="name">Name</label>
-							<input type="text" class="form-control" placeholder="Your Name">
+							<label for="{{ form.name.id_for_label }}">Name</label>
+							{{ form.name|attr:"class:form-control"|attr:"placeholder:Your Name" }}
 						</div>
 						<div>
-							<label for="email">Email</label>
-							<input type="text" class="form-control" placeholder="Your Email">
+							<label for="{{ form.email.id_for_label }}">Email</label>
+							{{ form.email|attr:"class:form-control"|attr:"placeholder:Your Email" }}
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="subject">Subject</label>
-						<input type="text" class="form-control" placeholder="Subject">
+						<label for="{{ form.subject.id_for_label }}">Subject</label>
+						{{ form.subject|attr:"class:form-control"|attr:"placeholder:Subject" }}
 					</div>
 					<div class="form-group">
-						<label for=",essage">Message</label>
-						<textarea type="text" class="form-control" rows="5" placeholder="Message"></textarea>
+						<label for="message">Message</label>
+						<textarea type="text" class="form-control" rows="5" placeholder="Message" name="message" required></textarea>
 					</div>
 					<div class="form-group">
-						<button class="form-control">Send Message</button>
+						<button class="form-control flex"><span>Send Message</span><i class="fa fa-paper-plane"></i></button>
 					</div>
 				</form>
 			</div>

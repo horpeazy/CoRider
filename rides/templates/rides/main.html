@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/static/css/main.css?cache_id={{ context.cache_id }}"/>
-    <title>CoRider - {{ context.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <title>CoRider - {{ title }}</title>
     {% block head %}
     {% endblock %}
 </head>
@@ -16,21 +16,26 @@
         <div class="nav-info">
             <p class="info-dig">
                 <span class="nav-icons">
-                    <i class="fas fa-solid fa-envelope"></i><span>corider@support.com</span>
+                    <i class="fas fa-solid fa-envelope"></i><span>support@corider.com</span>
                 <span class="nav-icons">
-                    <i class="fas fa-solid fa-phone"></i><span>(+234) 9153547755</span>
+                    <i class="fas fa-solid fa-phone"></i><span>(+234) 915 354 7755</span>
                 </span>
             </p>
             <p>We Provide <span>The Best Service & Discounts</span> For You</p>
         </div>
         <div class="nav-bar">
-            <div><img src="/static/images/logo.png?cache_id={{ context.cache_id }}" alt="logo"> </div>
+            <div><img src="{% static 'images/logo.png' %}" alt="logo"> </div>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/services">Services</a></li>
+                <li><a href="/team">Our Team</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/login">Login</a></li>
+                {% if request.user.is_authenticated %}
+                	<li><a href="/account">Dashboard</a></li>
+                {% else %}
+                	<li><a href="/accounts/login">Login</a></li>
+                {% endif %}
             </ul>
             <a href="/ride" class="ride">Let's ride now!</a>
             <button class="open"><i class="fas fa-bars"></i></button>
@@ -38,15 +43,19 @@
     </nav>
     <section class="sidebar">
     	<div>
-    		<img src="/static/images/logo.png?cache_id={{ context.cache_id }}" alt="logo">
+    		<img src="{% static 'images/logo.png' %}" alt="logo">
     		<span class="close"><i class="fas fa-close"></i></span>
     	</div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+    		<li><a href="/">Home</a></li>
+            <li><a href="/team">About</a></li>
             <li><a href="/services">Services</a></li>
+            <li><a href="/team">Our Team</a></li>
             <li><a href="/contact">Contact</a></li>
-            <li><a href="/login">Login</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="/account">Dashboard</a></li>
+            {% else %}
+               	<li><a href="/accounts/login">Login</a></li>
+            {% endif %}
         </ul>
     </section>
     {% block content %}
@@ -71,7 +80,7 @@
     		<div>
     			<h3>Contact</h3>
     			<p>contact@hopeiyamu.tech</p>
-    			<p>(+234) 707 345 4578</p>
+    			<p>(+234) 915 354 7755</p>
     		</div>
     		<div>
     			<h3>Work</h3>

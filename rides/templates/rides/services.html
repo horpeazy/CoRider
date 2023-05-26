@@ -2,8 +2,7 @@
 {% load static %}
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}">
-	<!-- <link rel="stylesheet" href="{% static 'css/services.css' %}"> -->
-	<link rel="stylesheet" href="/static/css/services.css/?cache_id=34344">
+	<link rel="stylesheet" href="{% static 'css/services.css' %}">
 {% endblock %}
 {% block content %}
 <section class="services-hero">
@@ -135,7 +134,7 @@
 	</div>
 </section>
 
-<section class="inquiries">
+<section class="inquiries" id="faq">
 	<div>
 		<img src="{% static 'images/faq.jpg'%}" alt="woman" >
 		<div>
@@ -149,7 +148,7 @@
 			Below are some of the common questions we receive from our clients. If you don't see the answer to your question here,
 			please don't hesitate to reach out to our customer support team for assistance.
 		</p>
-		<div class="faq">
+		<div class="faq" >
 			<div>
 				<div class="show question">
 					<i class="fas fa-chevron-right"></i>

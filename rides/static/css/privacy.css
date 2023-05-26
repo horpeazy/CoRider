@@ -1,0 +1,43 @@
+.privacy {
+	padding: 75px 20px;
+	background: rgba(0, 0, 0, 0.03)
+}
+
+ul {
+	padding: 20px 0px 0px 20px;
+}
+
+li, p {
+	font-size: .9rem;
+}
+
+h2, h3 {
+	margin: 10px 0;
+}
+
+h2 {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+h3 {
+	font-size: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+	.privacy {
+		padding: 100px 50px;
+	}
+	
+	h2 {
+		font-size: 2rem;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+	}
+	
+	li, p {
+		font-size: 1rem;
+	}
+}

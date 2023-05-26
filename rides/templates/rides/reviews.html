@@ -1,0 +1,42 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/reviews.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="reviews">
+	<div>
+    	<h2>Riviews</h2>
+		{% for review in reviews %}
+			<div class="reviews-container">
+				<div>
+					<div>
+						<h4>{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</h4>
+						<div class="rating">
+  							{% for i in '01234' %}
+    							{% if i|add:'1' <= review.rating %}
+      								<span class="star"><i class="fa fa-star gold"></i></span>
+    							{% else %}
+      								<span class="star"><i class="fa fa-star"></i></span>
+    							{% endif %}
+  							{% endfor %}
+  							<p>{{ review.created_at|naturaltime }}</p>
+						</div>
+					</div>
+					<img src="{{ review.reviewer.profile_picture.url }}" alt="reviewer profile"/>
+				</div>
+				<div>
+					{{ review.review }}
+				</div>
+			</div>
+		{% empty %}
+			<div class="no-review">
+				<p>No reviews yet.</p>
+			</div>
+		{% endfor %}
+	</div>
+</section>
+{% endblock %}
+
+

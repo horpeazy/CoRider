@@ -2,9 +2,7 @@
 {% load static %}
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}"/>
-	<link rel="stylesheet" href="/static/css/home.css/?cache_id=343434">
-	
-	<link rel="stylesheet" href="/static/css/team.css/?cache_id=343434">
+	<link rel="stylesheet" href="{% static 'css/team.css' %}">
 	<script src="{% static 'js/slider.js' %}" defer></script>
 {% endblock %}
 {% block content %}
@@ -16,7 +14,9 @@
 			   Join the thousands of satisfied riders who have chosen
 			   our trusted carpooling service and experience the comfort
 			   and convenience of a stress-free commute.
+			   
 			</p>
+			<a href="/ride" class="ride ride-alt" >Let's ride now!</a>
 		</div>
 		<div>
 			<img src="{% static '/images/phone.png' %}" alt="mobile-app-image" class="phone"/>
@@ -30,6 +30,7 @@
 				Discover the ultimate carpooling experience with our app - enjoy
 				seemless ride-sharing, reduced travel costs, and a greener tomorrow. Join us today!   
 			</p>
+			
 		</div>
 		<div class="offer-cards-wrapper">
 			<div class="card">

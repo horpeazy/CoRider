@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}"/>
-	<link rel="stylesheet" href="/static/css/about.css?cache_id={{ context.cache_id }}}"/>
+	<link rel="stylesheet" href="{% static 'css/about.css' %}"/>
 	<script src="{% static 'js/about.js' %}" defer ></script>
 {% endblock %}
 {% block content %}
