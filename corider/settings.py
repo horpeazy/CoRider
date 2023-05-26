@@ -27,7 +27,7 @@ SECRET_KEY = os.urandom(32)
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://41698a4d48c1.a06ea884.alx-cod.online:5000', '*']
 
 # Application definition
 
