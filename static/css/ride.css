@@ -120,7 +120,6 @@
 }
 
 .match-result {
-	display: none;
 	overflow-y: scroll;
 	height: 100%;
 	margin-top: 75px;
