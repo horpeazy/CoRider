@@ -28,3 +28,6 @@ COPY . .
 
 RUN pip install --no-index --find-links=/package_cache -r requirements.txt
 RUN python manage.py collectstatic --noinput
+
+EXPOSE 8000
+

@@ -41,7 +41,7 @@ lreviewBtn.forEach((element) => {
 creviewBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	review = document.querySelector('.review-text').value;
-	fetch('/create-review/', {
+	fetch('/api/v1/review/create', {
 		method: "POST",
 		body: JSON.stringify({
 			review: review,
@@ -57,9 +57,7 @@ creviewBtn.addEventListener('click', (e) => {
 		return res.json()
 	})
 	.then(data => {
-		if (data.message == "Created Successfully") {
-			window.location = `/ride-detail/${ride}`;
-		}
+		window.location = `/ride-detail/${ride}`;
 	})
 	.catch(error => console.log(error))
 });

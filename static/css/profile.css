@@ -61,6 +61,52 @@
     align-items: center;
 }
 
+.card-links {
+	padding: 0 !important;
+}
+
+.card-links ul li{
+	list-style: none;
+}
+
+.card-links ul li span:nth-of-type(2) {
+	width: 100%;
+}
+
+.card-links ul li span:nth-of-type(2) i {
+	float: right;
+	font-size: 18px;
+	color: grey;
+	margin-right: 10px;
+}
+
+.card-links ul li a{
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin: 0px 10px;
+	padding: 15px 0px;
+	color: black;
+	color: rgba(0, 0, 0, 0.7);
+	font-weight: bold;
+}
+
+.card-links ul li a:nth-of-type(last) {
+	border-bottom: none;
+}
+
+.card-links ul i {
+	font-size: 25px;
+	margin-left: 10px;
+}
+
+.fa-clock {
+	font-size: 20px;
+    color: var(--clr-yellow);
+    margin-right: 5px;
+}
+
 .about {
     width: 100%;
     position: relative;

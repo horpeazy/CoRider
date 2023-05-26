@@ -10,7 +10,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   app:
-    image: corider:1.0
+    image: corider
     ports:
       - 8000:8000
     environment:

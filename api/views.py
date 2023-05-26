@@ -23,7 +23,7 @@ def find_match(request):
 	if request.method == 'POST':
 		if not request.user.verified:
 			response = {
-				'status': 401
+				'status': 401,
 				'message': 'Unauthorized'
 			}
 			return JsonResponse(response, status=401)
@@ -111,7 +111,7 @@ def create_review(request):
 			Review.objects.create(user=user, review=review, rating=rating,
 						          reviewer=request.user, ride=ride)
 		response = {
-			'status': 201
+			'status': 201,
 			'message': 'Created Successfully'
 		}
 		return JsonResponse(response, status=201)

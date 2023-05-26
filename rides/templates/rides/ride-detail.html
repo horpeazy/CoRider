@@ -5,8 +5,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'css/ride-detail.css' %}">
-	<script src="{% static 'js/review.js' %}" defer></script>
-	<script src="{% static 'js/review-map.js' %}" defer></script>
+	<script src="{% static 'js/ride-detail.js' %}" defer></script>
+	<script src="{% static 'js/ride-detail-map.js' %}" defer></script>
 	<script>
 		const startLat = '{{ ride.origin_lat }}'
 		const startLon = '{{ ride.origin_lon }}'
@@ -362,12 +362,6 @@
 <div class="l-review-wrapper">	
 	<div class="l-review">
 		<button class="l-close-review"><i class="fa fa-close"></i></button>
-		<!-- <form>
-			<h2 style="margin-bottom: 0px; margin-top: 0px;">Leave a review</h2>
-			<textarea placeholder="Enter review here (optional)" name="review" class="review-text"></textarea>
-			<button class="c-review-btn l-review-btn review-btn">Submit</button>
-		</form> -->
-		
 		<form method="post" action="/end-ride/">
 			<h2 style="margin-bottom: 0px; margin-top: 0px;">Leave a review</h2>
 			<textarea placeholder="Enter review here (optional)" name="review" class="review-text"></textarea>
