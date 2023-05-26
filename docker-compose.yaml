@@ -10,7 +10,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   app:
-    image: corider:latest
+    image: corider:1.0
     ports:
       - 8000:8000
     environment:
@@ -26,22 +26,18 @@ services:
       - db
     working_dir: /corider
     command: >
-      bash -c "
+      bash -c '
        python manage.py makemigrations &&
        python manage.py migrate 
-       gunicorn corider.wsgi:application --bind 0.0.0.0:8000 " 
+       gunicorn corider.wsgi:application --bind 0.0.0.0:8000 '
     tty: true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://db:5432"]
+      test: ['CMD', 'curl', '-f', 'http://db:5432']
       interval: 60s
       timeout: 10s
       retries: 5
       
 volumes:
   postgres-data:
-    driver: local
-  static-data:
-    driver: local
-  media-data:
     driver: local
 

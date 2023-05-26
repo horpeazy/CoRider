@@ -9,7 +9,7 @@
 			{% if user.profile_picture %}
 				<img src="{{ user.profile_picture.url }}" alt="profile-picture" />
 			{% else %}
-				<img src="/static/images/CEO.jpg" alt="profile-picture" />
+				<img src="/static/images/profile-icon.jpg" alt="profile-picture" />
 			{% endif %}
 			<h3>{{ user.username }}</h3>
 			{% if user.verified %}
@@ -45,7 +45,7 @@
 					{% if user.availability %}
 						<h3>{{ user.availability }}%</h3>
 					{% else %}
-						<h3>100%</h3>
+						<h3>0%</h3>
 					{% endif %}
 				</div>
 			</div>

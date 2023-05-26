@@ -304,7 +304,6 @@ function showResults() {
 }
 
 function hide(e) {
-    searchEl.style.display = 'none';
     searchEl.style.top = '100%';
 }
 

@@ -18,67 +18,56 @@ User = get_user_model()
 
 def home(request):
     context = {
-    	'title': 'Home',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Home'
     }
     return render(request, 'rides/home.html', context)
 
 def about(request):
     context = {
-    	'title': 'About',
-    	'cache_id': uuid.uuid4()
+    	'title': 'About'
     }
     return render(request, 'rides/about.html', context)
 
 def contact(request):
 	context = {
     	'title': 'Contact',
-    	'cache_id': uuid.uuid4(),
     	'form': ContactMessageForm()
     }
 	if request.method == 'POST':
 		contact_message_form = ContactMessageForm(request.POST)
-		print(vars(contact_message_form))
 		if contact_message_form.is_valid():
 			contact_message_form.save()
-			print("created")
 			return redirect('rides:home')
-		print("Error occured")
 	return render(request, 'rides/contact.html', context)
 
 def team(request):
     context = {
-    	'title': 'Team',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Team'
     }
     return render(request, 'rides/team.html', context)
 
 def services(request):
     context = {
-    	'title': 'Services',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Services'
     }
     return render(request, 'rides/services.html', context)
     
 def terms(request):
     context = {
-    	'title': 'Terms',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Terms'
     }
     return render(request, 'rides/terms.html', context)
 
 def privacy(request):
     context = {
-    	'title': 'Privacy',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Privacy'
     }
     return render(request, 'rides/privacy.html', context)
 
 @login_required   
 def ride(request):
     context = {
-    	'title': 'Ride',
-    	'cache_id': uuid.uuid4()
+    	'title': 'Ride'
     }
     return render(request, 'rides/ride.html',  context)
 
@@ -87,8 +76,7 @@ def rides(request):
 	rides = Ride.objects.filter(user=request.user).all()
 	context = {
 		'title': 'Rides',
-		'rides': rides[::-1],
-		'cache_id': uuid.uuid4()
+		'rides': rides[::-1]
 	}
 	return render(request, 'rides/rides.html',  context)
 	
@@ -97,8 +85,7 @@ def reviews(request):
 	reviews = Review.objects.filter(user=request.user).all()
 	context = {
 		'title': 'Reviews',
-		'reviews': reviews,
-		'cache_id': uuid.uuid4()
+		'reviews': reviews
 	}
 	return render(request, 'rides/reviews.html',  context)
 	
@@ -108,8 +95,7 @@ def profile_reviews(request, username):
 	reviews = Review.objects.filter(user=user).all()
 	context = {
 		'title': 'Profile Reviews',
-		'reviews': reviews,
-		'cache_id': uuid.uuid4()
+		'reviews': reviews
 	}
 	return render(request, 'rides/reviews.html',  context)
 
@@ -127,8 +113,7 @@ def account(request):
 	context = {
 		'title': 'Account Information',
 		'user': user,
-		'vehicle': vehicle,
-		'cache_id': uuid.uuid4()
+		'vehicle': vehicle
 	}
 	return render(request, 'rides/account.html', context)
     
@@ -168,14 +153,18 @@ def edit_account(request):
 	context = {
 		'title': 'Edit Account',
 		'account_form': account_form,
-		'vehicle_form': vehicle_form,
-		'cache_id': uuid.uuid4()
+		'vehicle_form': vehicle_form
 	}
 	return render(request, 'rides/edit-account.html', context)
 
 @login_required
 def profile(request, username):
-	user = User.objects.get(username=username)
+	user = User.objects.filter(username=username).first()
+	if not user:
+		context = {
+			'title': '404 Error Page'
+    	}
+		return render(request, 'rides/404.html', context)  
 	vehicle = Vehicle.objects.filter(user=user).first()
 	user_ratings = Rating.objects.filter(user=user)
 	total_requests = Request.objects.filter(receiver=user).all()
@@ -187,8 +176,7 @@ def profile(request, username):
 	context = {
 		'title': 'Profile',
     	'user': user,
-    	'vehicle': vehicle,
-    	'cache_id': uuid.uuid4()
+    	'vehicle': vehicle
     }
 	return render(request, 'rides/profile.html', context)   
 
@@ -196,7 +184,10 @@ def profile(request, username):
 def ride_detail(request, ride_id):
 	ride = Ride.objects.filter(user=request.user, id=ride_id).first()
 	if not ride:
-		return JsonResponse({ "message": "not found"}, status=404)
+		context = {
+			'title': '404 Error Page'
+    	}
+		return render(request, 'rides/404.html', context) 
 	matches = []    # possible matches
 	requests = Request.objects.filter(receiver=request.user, r_ride=ride, 
 									  status=Request.PENDING).all()
@@ -208,7 +199,7 @@ def ride_detail(request, ride_id):
 		request_rides.append(r.s_ride)
 	for r in sent_requests_q:
 		sent_requests.append(r.r_ride)
-	if ride.role == "passenger":	
+	if ride.role == 'passenger':	
 		if ride.status == Ride.ACTIVE or ride.status == Ride.PENDING:
 			rides = Ride.objects.filter(role=Ride.DRIVER).\
 				     exclude(Q(user=request.user)).\
@@ -217,7 +208,6 @@ def ride_detail(request, ride_id):
 				# Convert the route string to a list of coordinates.
 				ride_route = ast.literal_eval(mride.route)
 				match_rate = match_routes(ast.literal_eval(ride.route), ride_route)
-				# add the match to potential matches if it's not the driver
 				if ( match_rate >= 0.4 and mride.user != ride.driver 
 				     and mride not in request_rides and mride not in sent_requests):
 					mride.match_rate = match_rate * 100
@@ -244,29 +234,29 @@ def ride_detail(request, ride_id):
 	driver = ride.driver
 	ride.user_id = ride.user.id
 	ride = vars(ride)
-	ride["requests"] = request_rides
-	ride["passengers"] = passengers
-	ride["driver"] = driver
+	ride['requests'] = request_rides
+	ride['passengers'] = passengers
+	ride['driver'] = driver
 	context = {
-		"title": "Ride Detail",
-		"ride": ride,
-		"matches": matches,
-		"cache_id": uuid.uuid4(),
+		'title': 'Ride Detail',
+		'ride': ride,
+		'matches': matches,
+		'cache_id': uuid.uuid4(),
 	}
-	return render(request, "rides/ride-detail.html", context)
+	return render(request, 'rides/ride-detail.html', context)
 
 @login_required
 def match(request):
-	ride_id = request.GET.get("ride_id", None)
-	match_id = request.GET.get("match_id", None)
-	role = request.GET.get("role", None)
+	ride_id = request.GET.get('ride_id', None)
+	match_id = request.GET.get('match_id', None)
+	role = request.GET.get('role', None)
 	ride = Ride.objects.filter(id=ride_id).first()
 	match = Ride.objects.filter(id=match_id).first()
 	req = Request.objects.\
 				  filter(sender=match.user, receiver=ride.user,s_ride=match).\
 				  first()
 	if ride and match:
-		if role == "passenger":
+		if role == 'passenger':
 			ride.driver = match
 			match.passengers.add(ride)
 		else:
@@ -276,14 +266,14 @@ def match(request):
 		ride.save()
 		match.save()
 		req.save()
-		return redirect("rides:ride-detail", ride_id=ride_id)  
+		return redirect('rides:ride-detail', ride_id=ride_id)  
 	else:
-		return render(request, "rides/404.html", context)
+		return render(request, 'rides/404.html', context)
 	
 @login_required	
 def decline(request):
-	ride_id = request.GET.get("ride_id")
-	match_id = request.GET.get("match_id")
+	ride_id = request.GET.get('ride_id')
+	match_id = request.GET.get('match_id')
 	ride = Ride.objects.filter(id=ride_id).first()
 	match = Ride.objects.filter(id=match_id).first()
 	if ride and match:
@@ -292,9 +282,9 @@ def decline(request):
 					  first()
 		req.status = Request.DECLINED
 		req.save()
-		return redirect("rides:ride-detail", ride_id=ride_id)
+		return redirect('rides:ride-detail', ride_id=ride_id)
 	else:
-		return render(request, "rides/404.html", context)
+		return render(request, 'rides/404.html', context)
 
 @login_required    
 def request(request):
@@ -306,15 +296,15 @@ def request(request):
 	if ride and match:
 		Request.objects.create(sender=ride.user, receiver=match.user,
 							   r_ride=match, s_ride=ride)
-	return redirect("rides:ride-detail", ride_id=ride_id)
+	return redirect('rides:ride-detail', ride_id=ride_id)
 
 @login_required	
 def end_trip(request):
-	if request.method == "POST":
-		ride_id = request.POST.get("ride_id")
-		driver_name = request.POST.get("driver")
-		review = request.POST.get("review")
-		rate = request.POST.get("rating", 0)
+	if request.method == 'POST':
+		ride_id = request.POST.get('ride_id')
+		driver_name = request.POST.get('driver')
+		review = request.POST.get('review')
+		rate = request.POST.get('rating', 0)
 		ride = Ride.objects.filter(user=request.user, id=ride_id).first()
 		user = User.objects.get(username=driver_name)
 		if rate:
@@ -329,7 +319,7 @@ def end_trip(request):
 			review = Review.objects.create(user=user, review=review, rating=rate,
 						       reviewer=request.user, ride=ride)
 	else:
-		ride_id = request.GET.get("ride_id")
+		ride_id = request.GET.get('ride_id')
 		ride = Ride.objects.filter(user=request.user, id=ride_id).first()
 	if ride:
 		ride.status = Ride.INACTIVE
@@ -341,36 +331,5 @@ def end_trip(request):
 			user.as_passenger += 1
 		user.save()
 		ride.save()
-	return redirect("rides:ride-detail", ride_id)
-
-@login_required
-@csrf_exempt
-def create_review(request):
-	if request.method == "POST":
-		request_body = json.loads(request.body)
-		review = request_body.get("review")
-		user_id = request_body.get("user_id")
-		ride_id = request_body.get("ride_id")
-		rating = request_body.get("rating")
-		ride = Ride.objects.filter(id=ride_id).first()
-		user = User.objects.filter(id=user_id).first()
-		if rating == '':
-			rating = 0
-		if rating:
-			Rating.objects.create(user=user, rate=rating,
-								  rater=request.user, ride=ride)
-			user_ratings = Rating.objects.filter(user=user)
-			if user_ratings:
-				average_rating = user_ratings.aggregate(Avg('rate'))['rate__avg']
-				user.rating = round(average_rating, 1)
-				user.save()
-		if review:
-			Review.objects.create(user=user, review=review, rating=rating,
-						          reviewer=request.user, ride=ride)
-		response = {
-			"message": 'Created Successfully'
-		}
-		return JsonResponse(response, status=201)
-		
-
+	return redirect('rides:ride-detail', ride_id)
 

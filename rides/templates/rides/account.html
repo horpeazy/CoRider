@@ -3,7 +3,7 @@
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/account.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
-	<script src="{% static 'js/account.css' %}" defer></script>
+	<script src="{% static 'js/account.js' %}" defer></script>
 {% endblock %}
 {% block content %}
 	<section class="account-container">
@@ -12,9 +12,9 @@
 		<div class="intro-section">
 			<div>
 				{% if user.profile_picture %}
-					<img src="{{ user.profile_picture.url }}" alt="" />
+					<img src="{{ user.profile_picture.url }}" alt="profile-picture" />
 				{% else %}
-					<img src="/static/images/CEO.jpg" alt="" />
+					<img src="/static/images/profile-icon.jpg" alt="profile-picture" />
 				{% endif %}
 			</div>
 			<div>
