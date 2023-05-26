@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib import admin
 from .models import ( Ride, Review, Request,
-					  Vehicle, Rating, ContactMessage )
+					  Vehicle, Rating, ContactMessage,
+					  SubscriptionEmail )
 
-# Register your models here.
-admin.site.register(( Ride, Review, Request,
-					 Vehicle, Rating, ContactMessage ))
+
+admin.site.register(( Ride, Review, Request, Vehicle, 
+					  Rating, ContactMessage, SubscriptionEmail ))
 

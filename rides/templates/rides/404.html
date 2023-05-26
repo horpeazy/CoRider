@@ -1,0 +1,17 @@
+{% extends 'rides/main.html' %}
+{% load static %}
+{% block head %}
+	<!-- <link rel="stylesheet" href="{% static 'css/404.css' %}"> -->
+	<link rel="stylesheet" href="/static/css/404.css?cache_id={{ cache_id }}">
+{% endblock %}
+{% block content %}
+	<section class="error">
+		<h1>Oops!</h1>
+		<h3>404 - page not found</h3>
+		<p>
+			The page you are looking for might have been removed, or the name changed,
+			or doesn't exist.
+		</p>
+		<a href="/">go back home</a>
+	</section>
+{% endblock %}

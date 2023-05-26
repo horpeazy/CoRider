@@ -161,10 +161,7 @@ def edit_account(request):
 def profile(request, username):
 	user = User.objects.filter(username=username).first()
 	if not user:
-		context = {
-			'title': '404 Error Page'
-    	}
-		return render(request, 'rides/404.html', context)  
+		return redirect('rides:404') 
 	vehicle = Vehicle.objects.filter(user=user).first()
 	user_ratings = Rating.objects.filter(user=user)
 	total_requests = Request.objects.filter(receiver=user).all()
@@ -184,10 +181,7 @@ def profile(request, username):
 def ride_detail(request, ride_id):
 	ride = Ride.objects.filter(user=request.user, id=ride_id).first()
 	if not ride:
-		context = {
-			'title': '404 Error Page'
-    	}
-		return render(request, 'rides/404.html', context) 
+		return redirect('rides:404')
 	matches = []    # possible matches
 	requests = Request.objects.filter(receiver=request.user, r_ride=ride, 
 									  status=Request.PENDING).all()
@@ -333,3 +327,9 @@ def end_trip(request):
 		ride.save()
 	return redirect('rides:ride-detail', ride_id)
 
+def error_404_page(request):
+	context = {
+		'title': '404 Error Page',
+		'cache_id': uuid.uuid4()
+	}
+	return render(request, 'rides/404.html', context)

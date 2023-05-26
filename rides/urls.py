@@ -7,7 +7,7 @@ from .views import ( home, about, contact,
 		     		 account, profile, 
 		     		 edit_account, rides,
 		     		 reviews, terms, privacy,
-		     		 profile_reviews )
+		     		 profile_reviews, error_404_page )
 
 app_name = 'rides'
 
@@ -32,4 +32,5 @@ urlpatterns = [
     path("reviews/<str:username>", profile_reviews, name="profile_reviews"),
     path("terms/", terms, name="terms"),
     path("privacy/", privacy, name="privacy"),
+    path("404/", error_404_page, name="404"),
 ]

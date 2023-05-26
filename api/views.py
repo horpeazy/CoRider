@@ -4,9 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Q, Avg
-from rides.models import Ride, Vehicle, Rating, Review
+from rides.models import ( Ride, Vehicle, Rating, 
+						   Review )
 from accounts.forms import EditAccountForm
-from rides.forms import VehicleForm
+from rides.forms import VehicleForm, SubscriptionEmailForm
 from .utils import match_routes
 import json
 import ast
@@ -115,3 +116,22 @@ def create_review(request):
 			'message': 'Created Successfully'
 		}
 		return JsonResponse(response, status=201)
+		
+@csrf_exempt
+def email_subscription(request):
+	if request.method == 'POST':
+		request_body = json.loads(request.body)
+		email_form = SubscriptionEmailForm(request_body)
+		if email_form.is_valid():
+			email_form.save()
+			response = {
+				'status': 201,
+				'message': 'Created Successfully'
+			}
+			return JsonResponse(response, status=201)
+		response = {
+			'status': 400,
+			'message': 'Invalid request'
+		}
+		return JsonResponse(response, status=400)
+

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from rides.models import Vehicle, ContactMessage
+from rides.models import Vehicle, ContactMessage, SubscriptionEmail
 
 User = get_user_model()
 
@@ -51,3 +51,11 @@ class ContactMessageForm(forms.ModelForm):
 		class Meta:
 			model = ContactMessage	
 			fields = ('name', 'email', 'subject', 'message',)
+	
+		
+class SubscriptionEmailForm(forms.ModelForm):
+	email = forms.EmailField(required=True)
+
+	class Meta:
+		model = SubscriptionEmail
+		fields = ('email', )

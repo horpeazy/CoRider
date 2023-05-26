@@ -108,4 +108,8 @@ class ContactMessage(models.Model):
 	
 	def __str__(self):
 		return f'message from {self.name} <subject: {self.subject}>'
+		
+class SubscriptionEmail(models.Model):
+	email = models.CharField(max_length=500, blank=False, null=False, unique=True)
+
 	
