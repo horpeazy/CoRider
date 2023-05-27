@@ -14,7 +14,7 @@
 				{% if user.profile_picture %}
 					<img src="{{ user.profile_picture.url }}" alt="profile-picture" />
 				{% else %}
-					<img src="/static/images/profile-icon.jpg" alt="profile-picture" />
+					<img src="{% static 'images/profile-picture.png' %}" alt="profile-picture" />
 				{% endif %}
 			</div>
 			<div>
@@ -110,7 +110,7 @@
 							{% if user.profile_picture %}
 								<img src="{{ user.profile_picture.url }}" alt="profile-picture">
 							{% else %}
-								<img src="{% static 'images/CEO.jpg' %}" alt="profile-picture">
+								<img src="{% static 'images/profile-picture.png' %}" alt="profile-picture">
 							{% endif %}
 						</div>
 						<h3>{{ user.username }}</h3>

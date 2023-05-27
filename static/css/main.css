@@ -20,6 +20,35 @@
     box-sizing: border-box;
 }
 
+::selection {
+	background-color: black;
+	color: white;
+}
+
+::-moz-selection {
+	background-color: black;
+	color: white;
+}
+
+::-webkit-selection {
+	background-color: black;
+	color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #F7F7F7 inset !important;
+}
+
+input:-webkit-autofill + div,
+input:-webkit-autofill:hover + div, 
+input:-webkit-autofill:focus + div, 
+input:-webkit-autofill:active + div{
+    -webkit-box-shadow: 0 0 0 30px #F7F7F7 inset !important;
+}
+
 html {
     position: relative;
     min-height: 100vh;

@@ -328,6 +328,20 @@
 	color: white;
 }
 
+.services-cards > div:nth-child(1):hover {
+	background: var(--clr-white);
+}
+
+.services-cards > div:nth-child(1):hover  i {
+	background: var(--clr-primary);
+	color: var(--clr-yellow);
+}
+
+.services-cards > div:nth-child(1):hover h3,
+.services-cards > div:nth-child(1):hover p {
+	color: black;
+}
+
 .services-cards i {
 	font-size: 30px;
 }

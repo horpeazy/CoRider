@@ -15,7 +15,7 @@
 				{% if request.user.profile_picture %}
         			<img src="{{ request.user.profile_picture.url }}" alt="profile picture" width='100' height='100' class="profile-picture"/>
         		{% else %}
-        			<img src="/static/images/CEO.jpg" alt="profile picture" width='100' height='100' class="profile-picture"/>
+        			<img src="{% static 'images/profile-picture.png' %}" alt="profile picture" width='100' height='100' class="profile-picture"/>
         		{% endif %}
         		{% if account_form.errors %}
 					<span class="change-avatar" style="color: red;">profile picture is required</span>

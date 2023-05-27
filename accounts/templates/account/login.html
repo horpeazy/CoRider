@@ -10,7 +10,7 @@
 	<div>
 		<div>
 			<h2>Welcome Back!</h2>
-			<p>Don't have an account? <a href="/accounts/register">Sign Up Now!</a></p>
+			<p>Don't have an account? <a href="/accounts/register" >Sign Up Now!</a></p>
 		</div>
 		{% if form.errors %}
 		<div class="alert alert-danger" role="alert">
@@ -19,17 +19,17 @@
 		{% endif %}
 		<form method="post" >
 			{% csrf_token %}
-			<p class="form-group">
+			<div class="form-group">
         		<label for="{{ form.username.id_for_label }}">Username</label>
         		{{ form.username|attr:"class:form-control"|attr:"required:true" }}
-    		</p>
-    		<p class="form-group">
+    		</div>
+    		<div class="form-group">
         		<label for="{{ form.password.id_for_label }}">Password</label>
         		<div class="password-wrapper">
         			{{ form.password|attr:"class:form-control password"|attr:"required:true" }}
-        			<div class="password-toggler"><i>S</i></div>
+        			<div class="password-toggler"><i class="fa fa-eye" ></i></div>
         		</div>
-    		</p>
+    		</div>
 			<div class="forgot-password"><a href="#">Forgot Password?</a></div>
 			<button type="submit" class="login-btn">Sign in</button>
 		</form>
@@ -41,10 +41,10 @@
 		
 		togglerEl.addEventListener("click", () => {
 			if (passwordEl.type == "password") {
-				togglerEl.innerHTML = 'H'
+				togglerEl.innerHTML = `<i class="fa fa-eye-slash"></i>`
 				passwordEl.type = "text";
 			} else {
-				togglerEl.innerHTML = 'S'
+				togglerEl.innerHTML = '<i class="fa fa-eye"></i>'
 				passwordEl.type = "password";
 			}
 		})

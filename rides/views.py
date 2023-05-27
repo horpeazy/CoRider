@@ -257,6 +257,10 @@ def match(request):
 			ride.passengers.add(match)
 			match.driver = ride
 		req.status = Request.ACCEPTED
+		if ride.status == Ride.PENDING:
+			ride.status = Ride.ACTIVE
+		if match.status == Ride.PENDING:
+			match.status = Ride.ACTIVE
 		ride.save()
 		match.save()
 		req.save()

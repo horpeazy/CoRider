@@ -147,7 +147,7 @@
   position: relative;
   border: 5px solid transparent;
   border-radius: 50%;
-  background-color: #000;
+  background-color: var(--clr-primary);;
   animation: spinner 1s linear infinite;
 }
 
@@ -155,7 +155,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--clr-white);
   position: absolute;
   top: 50px;
   left: 50px;

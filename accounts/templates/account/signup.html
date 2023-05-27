@@ -2,37 +2,39 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block head %}
-	<link rel="stylesheet" href="{% static 'css/account-main.css' %}">
-	<link rel="stylesheet" href="/static/css/account-main.css?cache_id=34434803">
+	<!-- <link rel="stylesheet" href="{% static 'css/account-main.css' %}"> -->
+	<link rel="stylesheet" href="/static/css/account-main.css?cache_id=03">
 {% endblock %}
 {% block content %}
 	<section class="login-form-wrapper">
 		<div>
 		<div>
 			<h2>Create Account</h2>
-			<p>Already have an account? <a href="/accounts/login">Sign in!</a></p>
+			<p>Already have an account? <a href="/accounts/login"  >Sign in!</a></p>
 		</div>
 		
 		<form method="post" >
 			{% csrf_token %}
-			<p class="form-group">
-        		<label for="{{ form.username.id_for_label }}">Username</label>
+			<div class="form-group">
+        		<label for="{{ form.username.id_for_label }}" >Username</label>
         		{{ form.username|attr:"class:form-control"|attr:"required:true" }}
-    		</p>
-    		<p class="form-group">
-        		<label for="{{ form.password1.id_for_label }}">Password</label>
-        		<div class="password-wrapper">
+    		</div>
+    		<div class="form-group">
+    			<label for="{{ form.password1.id_for_label }}" >Password</label>
+    			<div class="password-wrapper">
         			{{ form.password1|attr:"class:form-control password-1"|attr:"required:true" }}
-        			<div class="password-toggler-1"><i>S</i></div>
+        			<div class="password-toggler-1"><i  class="fa fa-eye"></i></div>
         		</div>
-    		</p>
-    		<p class="form-group">
-        		<label for="{{ form.password2.id_for_label }}">Password</label>
+        		
+        		
+    		</div>
+    		<div class="form-group">
+        		<label for="{{ form.password2.id_for_label }}">Confirm Password</label>
         		<div class="password-wrapper">
         			{{ form.password2|attr:"class:form-control password-2"|attr:"required:true" }}
-        			<div class="password-toggler-2"><i>S</i></div>
+        			<div class="password-toggler-2"><i class="fa fa-eye"></i></div>
         		</div>
-    		</p>
+    		</div>
     		{% if form.errors %}
 				<div class="alert alert-danger" role="alert">
 					{{ form.errors }}
@@ -52,10 +54,10 @@
 		function addVisibiltyToggle(input, toggler) {
 			toggler.addEventListener("click", () => {
 				if (input.type == "password") {
-					toggler.innerHTML = 'H'
+					toggler.innerHTML = '<i class="fa fa-eye-slash"></i>'
 					input.type = "text";
 				} else {
-					toggler.innerHTML = 'S'
+					toggler.innerHTML = `<i class="fa fa-eye"></i>`
 					input.type = "password";
 				}
 			})

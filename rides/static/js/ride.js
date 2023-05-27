@@ -7,9 +7,11 @@ const resultsWrapper = document.querySelector('.results-wrapper');
 const personEl = document.querySelector('.fa-person');
 const carEl = document.querySelector('.fa-car');
 const matchBtn = document.querySelector('.fa-search');
-let zoomed, dMarker, endLon, endLat, startLat, startLon;
-let currenRoute, currentDest, current_location;
 let role;
+let zoomed, marker, dMarker; 
+let endLon, endLat, startLat, startLon;
+let currenRoute, currentDest, current_location;
+let layerExists = false;
 const center = [8.6753, 9.0820];
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9ycGVhenkiLCJhIjoiY2xmNjFuOGJyMWk0bzN2cjBzZno0NXNmdCJ9.aEgc6K_vrA2mctaeIFzBrg';
@@ -53,11 +55,10 @@ function drawRoute(startLat, startLon, endLat, endLon) {
         };
 
         // Add the route layer to the map
-        const source = map.getLayer('source')
-        if (source) {
-        	map.removeLayer('route');
+        if (layerExists) {
+        	 map.removeLayer('route');
         }
-        
+         
         map.addLayer({
             id: 'route',
             type: 'line',
@@ -75,6 +76,8 @@ function drawRoute(startLat, startLon, endLat, endLon) {
             },
             visibility: 'visible'
         });
+        
+        layerExists = true;
 
         const dMarker = new mapboxgl.Marker()
             .setLngLat([endLon, endLat])
@@ -203,7 +206,7 @@ searchInput.addEventListener("keyup", ()=> {
 
 matchBtn.addEventListener("click", (e) => {
 		if (!endLat || !endLon) {
-        	alert("Please select a destination as driver or passenger.")
+        	alert("Please select a destination.")
         	return;
     	}
         routeUrl = "https://router.project-osrm.org/route/v1/driving/";
@@ -244,12 +247,8 @@ matchBtn.addEventListener("click", (e) => {
                 if (res.status == 200) {
                     return res.json()
                 } else if ( res.status == 401) {
-                	resultEl.innerHTML = `
-                							<div class='flex'>
-                								Please verify your profile by completing it before you can ride!
-                							</div>`;
+                	throw new Error('Unauthorized');
                 }
-                throw new Error;
             })
             .then(data => {
                 resultEl.innerHTML = "";
@@ -283,7 +282,7 @@ matchBtn.addEventListener("click", (e) => {
     					</div>
     					<div class="match-actions" style="float: right;">
     						<a href="/profile/${data[i].username}" class="profile-btn">
-      							View Profile
+      							Profile
     						</a>
     						<a href="/request/?ride_id=${data[i].ride_id}&match_id=${data[i].id}" class="profile-btn">
       							Request
@@ -293,8 +292,13 @@ matchBtn.addEventListener("click", (e) => {
                 }
             })
             .catch(error => {
-                console.log(error);
-                resultEl.innerHTML = "<div class='flex'>Ooops! Something went wrong.<br> Please try again.</div>";
+                if (error.message == 'Unauthorized') {
+                	resultEl.innerHTML = `<div class='flex'>
+                						  	Please verify your profile by completing it before you can ride!
+                						  </div>`;
+                } else {
+                	resultEl.innerHTML = "<div class='flex'>Ooops! Something went wrong.<br> Please try again.</div>";
+                }
             });
         });
     });

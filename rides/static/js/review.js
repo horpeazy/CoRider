@@ -41,7 +41,7 @@ lreviewBtn.forEach((element) => {
 creviewBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	review = document.querySelector('.review-text').value;
-	fetch('/api/v1/review/create', {
+	fetch("/api/v1/review/create//", {
 		method: "POST",
 		body: JSON.stringify({
 			review: review,
