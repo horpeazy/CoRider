@@ -35,6 +35,7 @@ services:
     working_dir: /corider
     command: >
       bash -c '
+       ./wait-for-it.sh db:5432 -t 60 &&
        python manage.py makemigrations &&
        python manage.py migrate &&
        gunicorn corider.wsgi:application --bind 0.0.0.0:8000 '
