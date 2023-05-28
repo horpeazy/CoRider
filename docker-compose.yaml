@@ -31,8 +31,7 @@ services:
       - /var/www/html/corider/static:/corider/static/
       - /var/www/html/corider/media:/corider/media/
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     working_dir: /corider
     command: >
       bash -c '
