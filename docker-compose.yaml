@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - 9000:8000
     environment:
       - DATABASE_NAME=corider
       - DATABASE_USER=horpeazy
