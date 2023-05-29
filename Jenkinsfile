@@ -2,15 +2,6 @@ pipeline {
     agent any
     
     stages {
-        
-        stage('Pre-build') {
-            steps {
-            	sh 'sudo mkdir -p /var/www/html/corider/'
-                sh 'sudo cp -R static /var/www/html/corider/'
-                sh 'sudo cp -R media /var/www/html/corider/'
-            }
-        }
-        
         stage('Build') {
             steps {
                 sh 'sudo docker build -t corider:latest .'
@@ -19,13 +10,22 @@ pipeline {
         
         stage('Testing') {
             steps {
-                sh 'testing the application...'
+                sh 'echo "Testing the application..."'
             }
         }
         
         stage('Deploy') {
             steps {
                 sh 'sudo docker-compose -f docker-compose up --build'
+            }
+        }
+        
+        post {
+            always {
+                docker.image('jenkins/jenkins:latest').inside('-v /var/www/html/corider:/var/www/html/corider') {
+                    sh 'cp -R /var/www/html/corider/static /var/www/html/corider/'
+                    sh 'cp -R /var/www/html/corider/media /var/www/html/corider/'
+                }
             }
         }
     }
