@@ -7,7 +7,6 @@ pipeline {
             steps {
                 sh 'cp -R static /var/www/html/corider/'
                 sh 'cp -R media /var/www/html/corider/'
-                sh 'cd /corider/'
             }
         }
         
@@ -17,9 +16,9 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('Testing') {
             steps {
-                sh 'testing the application'
+                sh 'testing the application...'
             }
         }
         
