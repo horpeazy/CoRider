@@ -1,13 +1,10 @@
 pipeline {
-
-	agent any
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                script {
-                    sh 'sudo docker build -t corider:latest .'
-                }
+                sh 'sudo docker build -t corider:latest .'
             }
         }
         
@@ -19,19 +16,24 @@ pipeline {
             }
         }
 
-        stage('Testing') {
+        stage('Unit Tests') {
             steps {
-                sh 'echo "Testing the application..."'
+                script {
+                    docker.image('corider:latest').withRun('-p 8000:8000') { container ->
+                        dir('/corider') {
+                            sh 'sudo docker exec ${container.id} python manage.py test'
+                        }
+                    }
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                
-            	sh 'sudo docker-compose -f docker-compose.yaml up -d'
+            	sh 'sudo docker-compose -f docker-compose.yaml down'
+                sh 'sudo docker-compose -f docker-compose.yaml up -d'
             }
         }
     }
-
 }
 

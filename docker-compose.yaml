@@ -18,7 +18,7 @@ services:
   app:
     image: corider:latest
     ports:
-      - 9001:8000
+      - 8000:8000
     environment:
       - DATABASE_NAME=corider
       - DATABASE_USER=horpeazy
