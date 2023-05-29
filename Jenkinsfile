@@ -1,17 +1,21 @@
 pipeline {
-    agent {
-        docker {
-            image 'jenkins/jenkins:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     stages {
+    
         stage('Build') {
             steps {
                 script {
                     docker.build('corider:latest')
                 }
+            }
+        }
+        
+        stage('Post-Build') {
+            steps {
+                sh 'mkdir -p /var/www/html/corider/'
+                sh 'cp -R static /var/www/html/corider/'
+                sh 'cp -R media /var/www/html/corider/'
             }
         }
 
@@ -32,15 +36,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            script {
-                sh '''
-                cp -R static /var/www/html/corider/
-                cp -R media /var/www/html/corider/
-                '''
-            }
-        }
-    }
 }
 
