@@ -19,7 +19,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    docker.image('corider:latest').withRun('-p 8000:8000') { container ->
+                    docker.image('corider:latest').inside("-u root -p 8000:8000") { container ->
                         dir('/corider') {
                             sh 'sudo docker exec ${container.id} python manage.py test'
                         }
