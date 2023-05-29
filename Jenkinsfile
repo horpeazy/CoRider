@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo docker build -t corider:latest .'
+                sh 'docker build -t corider:latest .'
             }
         }
         
@@ -19,9 +19,9 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    docker.image('corider:latest').inside("-u root -p 8000:8000") { container ->
+                    docker.image('corider:latest').inside('8000:8000') { container ->
                         dir('/corider') {
-                            sh 'sudo docker exec ${container.id} python manage.py test'
+                            sh 'docker exec ${container.id} python manage.py test'
                         }
                     }
                 }
@@ -30,8 +30,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-            	sh 'sudo docker-compose -f docker-compose.yaml down'
-                sh 'sudo docker-compose -f docker-compose.yaml up -d'
+            	sh 'docker-compose -f docker-compose.yaml down'
+                sh 'docker-compose -f docker-compose.yaml up -d'
             }
         }
     }
