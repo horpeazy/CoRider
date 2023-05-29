@@ -27,11 +27,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    docker.withRegistry('', 'docker-credentials') {
-                        sh 'sudo docker-compose -f docker-compose.yaml up --build'
-                    }
-                }
+                
+            	sh 'sudo docker-compose -f docker-compose.yaml up --build'
             }
         }
     }
