@@ -1,10 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'jenkins/jenkins:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-                sh 'sudo docker build -t corider:latest .'
+                script {
+                    docker.build('corider:latest')
+                }
             }
         }
 
@@ -16,7 +23,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'sudo docker-compose -f docker-compose up --build'
+                script {
+                    docker.withRegistry('', 'docker-credentials') {
+                        sh 'docker-compose -f docker-compose.yaml up --build'
+                    }
+                }
             }
         }
     }
@@ -25,8 +36,8 @@ pipeline {
         always {
             script {
                 sh '''
-                cp -R /var/www/html/corider/static /var/www/html/corider/
-                cp -R /var/www/html/corider/media /var/www/html/corider/
+                cp -R static /var/www/html/corider/
+                cp -R media /var/www/html/corider/
                 '''
             }
         }
