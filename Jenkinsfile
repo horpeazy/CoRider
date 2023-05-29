@@ -31,8 +31,8 @@ pipeline {
                         }
                     } finally {
                         if (appContainer != null) {
-                            appContainer.stop()
-                            appContainer.remove()
+                            docker.stop(appContainer.id)
+                            docker.remove(appContainer.id)
                         }
                     }
                 }
