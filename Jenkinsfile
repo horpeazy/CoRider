@@ -13,9 +13,9 @@ pipeline {
         
         stage('Post-Build') {
             steps {
-                sh 'mkdir -p /var/www/html/corider/'
-                sh 'cp -R static /var/www/html/corider/'
-                sh 'cp -R media /var/www/html/corider/'
+                sh 'sudo mkdir -p /var/www/html/corider/'
+                sh 'sudo cp -R static /var/www/html/corider/'
+                sh 'sudo cp -R media /var/www/html/corider/'
             }
         }
 
