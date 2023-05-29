@@ -7,7 +7,7 @@ pipeline {
                 sh 'docker build -t corider:latest .'
             }
         }
-        
+
         stage('Post-Build') {
             steps {
                 sh 'sudo mkdir -p /var/www/html/corider/'
@@ -19,9 +19,17 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    docker.image('corider:latest').inside('-p 8000:8000') { container ->
+                    def appContainer
+
+                    try {
+                        appContainer = docker.image('corider:latest').run('-p 8000:8000 -d')
                         dir('/corider') {
-                            sh 'docker exec ${container.id} python manage.py test'
+                            sh "docker exec ${appContainer.id} python manage.py test"
+                        }
+                    } finally {
+                        if (appContainer != null) {
+                            appContainer.stop()
+                            appContainer.remove()
                         }
                     }
                 }
@@ -30,7 +38,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-            	sh 'docker-compose -f docker-compose.yaml down'
+                sh 'docker-compose -f docker-compose.yaml down'
                 sh 'docker-compose -f docker-compose.yaml up -d'
             }
         }
