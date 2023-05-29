@@ -19,6 +19,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 sh 'testing application'
+            }
         }
 
         stage('Deploy') {
