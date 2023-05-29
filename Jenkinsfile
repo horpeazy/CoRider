@@ -25,6 +25,9 @@ pipeline {
                         def appContainer = docker.image('corider:latest').run('-p 8000:8000 -d')
                         appContainerId = appContainer.id
 
+                        // Wait for the container to start
+                        sh "docker wait ${appContainer.id}"
+
                         // Execute the command within the container
                         sh "docker exec ${appContainer.id} sh -c 'cd /corider && python manage.py test'"
                     } finally {
