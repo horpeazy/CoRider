@@ -5,6 +5,7 @@ pipeline {
         
         stage('Pre-build') {
             steps {
+            	sh 'mkdir -p /var/www/html/corider/'
                 sh 'cp -R static /var/www/html/corider/'
                 sh 'cp -R media /var/www/html/corider/'
             }
