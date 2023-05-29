@@ -19,18 +19,13 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    def appContainer
-
-                    try {
-                        appContainer = docker.image('corider:latest').run('-p 8000:8000 -d')
+                    docker.withRegistry('') {
+                        def appContainer = docker.image('corider:latest').run('-p 8000:8000 -d')
                         dir('/corider') {
                             sh "docker exec ${appContainer.id} python manage.py test"
                         }
-                    } finally {
-                        if (appContainer != null) {
-                            appContainer.stop()
-                            appContainer.remove()
-                        }
+                        appContainer.stop()
+                        appContainer.remove()
                     }
                 }
             }
