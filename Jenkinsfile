@@ -25,7 +25,9 @@ pipeline {
                         appContainer = docker.image('corider:latest').run('-p 8000:8000 -d')
 
                         script {
-                            sh 'cd /corider && python manage.py test'
+                            dir('/corider') {
+                                sh 'python manage.py test'
+                            }
                         }
                     } finally {
                         if (appContainer != null) {
