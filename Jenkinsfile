@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build('corider:latest')
+                    sh 'sudo docker build -t corider:latest .'
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'docker-credentials') {
-                        sh 'docker-compose -f docker-compose.yaml up --build'
+                        sh 'sudo docker-compose -f docker-compose.yaml up --build'
                     }
                 }
             }
