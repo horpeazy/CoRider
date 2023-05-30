@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker-compose -f docker-compose.yaml up -d --no-log-prefix'
+                        sh 'docker-compose -f docker-compose.yaml up -d'
                         sh 'docker-compose -f docker-compose.yaml logs -f app --no-color --no-log-prefix & sleep 10'
                         sh 'docker-compose -f docker-compose.yaml exec -T app sh -c "cd /corider && python manage.py test"'
                     } finally {
