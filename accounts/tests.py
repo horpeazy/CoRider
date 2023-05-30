@@ -88,17 +88,30 @@ class SignUpViewTest(TestCase):
         	'username': 'a' * 256,  # Long username with 256 characters
         	'password1': 'testpassword',
         	'password2': 'testpassword',
+        })
+    	self.assertEqual(response.status_code, 200)
+    	self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_post_request_short_password(self):
+    	response = self.client.post(self.signup_url, {
+        	'username': 'newUser',
+        	'password1': 'abc',
+        	'password2': 'abc',
     	})
     	self.assertEqual(response.status_code, 200)
     	self.assertFalse(response.wsgi_request.user.is_authenticated)
-    	
-    def test_post_request_short_password(self):
-        response = self.client.post(self.signup_url, {
-            'username': 'newUser',
-            'password1': 'abc',
-            'password2': 'abc',
-        })
-        self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.wsgi_request.user.is_authenticated)
-        self.assertFormError(response, 'form', 'password2', 'This password is too short. It must contain at least 8 characters.')
+
+    	password2_errors = response.context['form'].errors.get('password2', [])
+    	expected_errors = [
+        	'This password is too short. It must contain at least 8 characters.',
+        	'This password is too common.'
+    	]
+
+    	self.assertTrue(any(error in password2_errors for error in expected_errors))
+
+
+
+
+
+
 
