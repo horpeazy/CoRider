@@ -21,8 +21,8 @@ pipeline {
                 script {
                     try {
                         sh 'docker-compose -f docker-compose.staging.yaml up -d'
-                        sh 'docker-compose -f docker-compose.staging.yaml logs -f app & sleep 5'
-                        sh 'docker-compose -f docker-compose.staging.yaml exec -T app sh -c "cd /corider && python manage.py test"'
+                        sh 'docker-compose -f docker-compose.staging.yaml logs -f test_app & sleep 5'
+                        sh 'docker-compose -f docker-compose.staging.yaml exec -T test_app sh -c "cd /corider && python manage.py test"'
                         sh 'docker tag corider:latest corider:stable'
                     } catch (Exception err) {
                         currentBuild.result = 'FAILURE'
