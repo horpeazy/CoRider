@@ -227,6 +227,16 @@ nav {
 	background: white;
 }
 
+.number {
+	color: var(--clr-primary);
+	font-size: 30px;
+}
+
+
+.fa-close {
+	color: var(--clr-primary);
+}
+
 .pre-footer {
 	padding: var(--global-padding);
 	padding-bottom: 100px;

@@ -18,7 +18,25 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh 'echo testing application'
+                script {
+                    def appContainerId
+
+                    try {
+                        def appContainer = docker.image('corider:latest').run('-d')
+                        appContainerId = appContainer.id
+
+                        // Wait for the container to start
+                        sh "docker wait ${appContainer.id}"
+
+                        // Execute the command within the container
+                        sh "docker exec ${appContainer.id} sh -c 'cd /corider && python manage.py test'"
+                    } finally {
+                        if (appContainerId) {
+                            sh "docker stop ${appContainerId}"
+                            sh "docker rm ${appContainerId}"
+                        }
+                    }
+                }
             }
         }
 
