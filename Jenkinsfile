@@ -24,7 +24,7 @@ pipeline {
                     try {
                         def appContainer = docker.image('corider:latest').run('-d')
                         appContainerId = appContainer.id
-
+						sh "echo ${appContainerId}"
                         // Wait for the container to start
                         sh "docker wait ${appContainer.id}"
 
@@ -32,6 +32,7 @@ pipeline {
                         sh "docker exec ${appContainer.id} sh -c 'cd /corider && python manage.py test'"
                     } finally {
                         if (appContainerId) {
+                            sh "docker logs ${appContainerId}" // Print container logs for debugging
                             sh "docker stop ${appContainerId}"
                             sh "docker rm ${appContainerId}"
                         }
