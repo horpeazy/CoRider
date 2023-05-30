@@ -48,9 +48,11 @@ pipeline {
             }
             steps {
                 script {
-                    def previousBuild = currentBuild.previousBuild
+                    def buildInfo = currentBuild.rawBuild.getBuildVariables()
+                    def previousBuildNumber = buildInfo['BUILD_NUMBER'].toInteger() - 1
+                    def previousBuild = Jenkins.instance.getBuildByNumber(previousBuildNumber)
                     while (previousBuild != null) {
-                        def buildArtifacts = previousBuild.getArtifacts()
+                        def buildArtifacts = previousBuild.artifacts
                         if (buildArtifacts.find { it.fileName == 'docker-compose.yaml' }) {
                             sh 'docker-compose -f docker-compose.yaml down'
                             sh "docker-compose -f docker-compose.yaml up -d --build --no-deps ${buildArtifacts.find { it.fileName == 'docker-compose.yaml' }.getUrlName()}"
