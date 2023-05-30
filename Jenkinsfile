@@ -21,8 +21,11 @@ pipeline {
                 script {
                     try {
                         sh 'docker-compose -f docker-compose.yaml up -d'
-                        sh 'docker-compose -f docker-compose.yaml logs -f app & sleep 10'
+                        sh 'docker-compose -f docker-compose.yaml logs -f app & sleep 5'
                         sh 'docker-compose -f docker-compose.yaml exec -T app sh -c "cd /corider && python manage.py test"'
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        error('Unit tests failed!')
                     } finally {
                         sh 'docker-compose -f docker-compose.yaml down'
                     }
@@ -36,11 +39,11 @@ pipeline {
                 archiveArtifacts artifacts: 'docker-compose.yaml', fingerprint: true
             }
         }
-        
+
         stage('Rollback') {
             when {
                 not {
-                    success()
+                    success
                 }
             }
             steps {
@@ -58,8 +61,6 @@ pipeline {
                 }
             }
         }
-
-
     }
 }
 
