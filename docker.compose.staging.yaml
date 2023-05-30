@@ -1,13 +1,13 @@
 version: '3'
 services: 
-  db:
+  test_db:
     image: postgres
     environment:
-      - POSTGRES_DB=corider
-      - POSTGRES_USER=horpeazy
-      - POSTGRES_PASSWORD=afisuru123
+      - POSTGRES_DB=corider_test_db
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpassword
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - test_postgres-data:/var/lib/postgresql/data
     tty: true
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "horpeazy"]
@@ -15,36 +15,38 @@ services:
       timeout: 10s
       retries: 5
 
-  app:
-    image: corider:stable
+  test_app:
+    image: corider:latest
     ports:
-      - 8000:8000
+      - 5000:8000
     environment:
-      - DATABASE_NAME=corider
-      - DATABASE_USER=horpeazy
-      - DATABASE_USER_PWD=afisuru123
+      - DATABASE_NAME=corider_test_db
+      - DATABASE_USER=testuser
+      - DATABASE_USER_PWD=testpassword
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
     volumes:
       - /var/www/html/corider/static:/corider/static/
       - /var/www/html/corider/media:/corider/media/
     depends_on:
-      - db
+      - test_db
     working_dir: /corider
     command: >
       bash -c '
-       ./wait-for-it.sh db:5432 -t 60 &&
+       ./wait-for-it.sh test_db:5432 -t 60 &&
        python manage.py makemigrations &&
        python manage.py migrate &&
        gunicorn corider.wsgi:application --bind 0.0.0.0:8000 '
     tty: true
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://app:8000']
+      test: ['CMD', 'curl', '-f', 'http://test_app:8000']
       interval: 60s
       timeout: 10s
       retries: 5
       
 volumes:
   postgres-data:
+    driver: local
+  test_postgres-data:
     driver: local
 
