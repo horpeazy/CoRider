@@ -42,17 +42,15 @@ pipeline {
 
         stage('Rollback') {
             when {
-                not {
-                    expression {
-                        currentBuild.result == 'SUCCESS'
-                    }
+                expression {
+                    currentBuild.result != 'SUCCESS'
                 }
             }
             steps {
                 script {
                     def previousBuild = currentBuild.previousBuild
                     while (previousBuild != null) {
-                        def artifacts = previousBuild.getArtifacts()
+                        def artifacts = previousBuild.artifacts
                         if (artifacts.find { it.fileName == 'docker-compose.yaml' }) {
                             sh 'docker-compose -f docker-compose.yaml down'
                             sh "docker-compose -f docker-compose.yaml up -d --build --no-deps ${artifacts.find { it.fileName == 'docker-compose.yaml' }.getUrlName()}"
