@@ -228,12 +228,13 @@ nav {
 }
 
 .number {
-	color: var(--clr-primary);
-	font-size: 30px;
+	color: var(--clr-primary) !important;
+	font-size: 30px !important;
+	user-select: none !important;
 }
 
-
-.fa-close {
+.fa-close, 
+.fa-phone {
 	color: var(--clr-primary);
 }
 

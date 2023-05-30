@@ -227,6 +227,17 @@ nav {
 	background: white;
 }
 
+.number {
+	color: var(--clr-primary) !important;
+	font-size: 30px !important;
+	user-select: none !important;
+}
+
+.fa-close, 
+.fa-phone {
+	color: var(--clr-primary);
+}
+
 .pre-footer {
 	padding: var(--global-padding);
 	padding-bottom: 100px;

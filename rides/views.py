@@ -231,6 +231,7 @@ def ride_detail(request, ride_id):
 	ride['requests'] = request_rides
 	ride['passengers'] = passengers
 	ride['driver'] = driver
+	ride['sent_request'] = sent_requests
 	context = {
 		'title': 'Ride Detail',
 		'ride': ride,

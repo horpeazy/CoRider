@@ -53,6 +53,36 @@
 	</div>
 	
 	<div>
+	{% if ride.sent_requests and ride.status == 'pending' %}
+		<h2>Sent Requests</h2>
+			{% for match in ride.sent_requests %}
+				<div class="match-wrapper">
+  					<div class="match-info">
+  						<div>
+  							<img src="{{ match.user.profile_picture.url }}" alt="" />
+  						  	<div>
+  						    	<h2>{{ match.user.username }}</h2>
+  						    	<div>
+  						      		<i class="fa fa-star"></i>
+  						      		<span>{{ match.user.rating }}</span>
+  						      		{% if match.role == 'driver' %}
+  						        		<i class="fa fa-car"></i>
+  						      		{% else %}
+  						        		<i class="fa fa-person"></i>
+  						      		{% endif %}
+  						    	</div>
+  						  	</div>
+  						</div>
+    					<div class="match-details">
+      						<div><i class="fas fa-map-marker-alt"></i> {{ match.origin }} --- {{ match.destination }}</div>
+      					</div>
+    			   </div>
+  			</div>
+		{% endfor %}
+	{% endif %}
+	</div>
+	
+	<div>
 	{% if ride.requests and ride.status == 'pending' %}
 		<h2>Match Requests</h2>
 		{% for match in ride.requests %}

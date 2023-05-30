@@ -24,7 +24,7 @@ def signup_view(request):
 		'cache_id': uuid.uuid4(),
 		'form': form
 	}
-	return render(request, 'account/signup.html', context)
+	return render(request, 'accounts/signup.html', context)
 
 	
 def login_view(request):
@@ -49,7 +49,7 @@ def login_view(request):
 		'cache_id': uuid.uuid4(),
 		'form': form
 	}
-	return render(request, 'account/login.html', context)
+	return render(request, 'accounts/login.html', context)
 	
 def logout_view(request):
 	if request.user:
