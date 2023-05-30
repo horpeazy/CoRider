@@ -33,8 +33,33 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker-compose -f docker-compose.yaml up -d'
+                archiveArtifacts artifacts: 'docker-compose.yaml', fingerprint: true
             }
         }
+        
+        stage('Rollback') {
+            when {
+                not {
+                    success()
+                }
+            }
+            steps {
+                script {
+                    def previousBuild = currentBuild.previousBuild
+                    while (previousBuild != null) {
+                        def artifacts = previousBuild.getArtifacts()
+                        if (artifacts.find { it.fileName == 'docker-compose.yaml' }) {
+                            sh 'docker-compose -f docker-compose.yaml down'
+                            sh "docker-compose -f docker-compose.yaml up -d --build --no-deps ${artifacts.find { it.fileName == 'docker-compose.yaml' }.getUrlName()}"
+                            break
+                        }
+                        previousBuild = previousBuild.previousBuild
+                    }
+                }
+            }
+        }
+
+
     }
 }
 
