@@ -41,28 +41,29 @@ pipeline {
         }
 
         stage('Rollback') {
-            when {
-                expression {
-                    currentBuild.result != 'SUCCESS'
+    when {
+        expression {
+            currentBuild.result != 'SUCCESS'
+        }
+    }
+    steps {
+        script {
+            def buildInfo = currentBuild.rawBuild.getBuildVariables()
+            def previousBuildNumber = buildInfo['BUILD_NUMBER'].toInteger() - 1
+            def previousBuild = Jenkins.instance.getBuildByNumber(previousBuildNumber)
+            while (previousBuild != null) {
+                def buildArtifacts = previousBuild.artifacts
+                if (buildArtifacts.find { it.fileName == 'docker-compose.yaml' }) {
+                    sh 'docker-compose -f docker-compose.yaml down'
+                    sh "docker-compose -f docker-compose.yaml up -d --build --no-deps ${buildArtifacts.find { it.fileName == 'docker-compose.yaml' }.getUrlName()}"
+                    break
                 }
-            }
-            steps {
-                script {
-                    def buildInfo = currentBuild.rawBuild.getBuildVariables()
-                    def previousBuildNumber = buildInfo['BUILD_NUMBER'].toInteger() - 1
-                    def previousBuild = Jenkins.instance.getBuildByNumber(previousBuildNumber)
-                    while (previousBuild != null) {
-                        def buildArtifacts = previousBuild.artifacts
-                        if (buildArtifacts.find { it.fileName == 'docker-compose.yaml' }) {
-                            sh 'docker-compose -f docker-compose.yaml down'
-                            sh "docker-compose -f docker-compose.yaml up -d --build --no-deps ${buildArtifacts.find { it.fileName == 'docker-compose.yaml' }.getUrlName()}"
-                            break
-                        }
-                        previousBuild = previousBuild.previousBuild
-                    }
-                }
+                previousBuild = previousBuild.previousBuild
             }
         }
+    }
+}
+
     }
 }
 
