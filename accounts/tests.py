@@ -92,7 +92,7 @@ class SignUpViewTest(TestCase):
     	self.assertEqual(response.status_code, 200)
     	self.assertFalse(response.wsgi_request.user.is_authenticated)
     	
-    def test_post_request_common_password(self):
+    def test_post_request_short_password(self):
         response = self.client.post(self.signup_url, {
             'username': 'newUser',
             'password1': 'abc',
@@ -100,5 +100,5 @@ class SignUpViewTest(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.wsgi_request.user.is_authenticated)
-        self.assertFormError(response, 'form', 'password2', 'This password is too common.')
+        self.assertFormError(response, 'form', 'password2', 'This password is too short. It must contain at least 8 characters.')
 
