@@ -43,7 +43,9 @@ pipeline {
         stage('Rollback') {
             when {
                 not {
-                    success
+                    expression {
+                        currentBuild.result == 'SUCCESS'
+                    }
                 }
             }
             steps {
