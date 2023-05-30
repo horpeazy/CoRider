@@ -31,9 +31,10 @@ pipeline {
 
                         // Print container information
                         sh "docker ps -a --filter id=${appContainerId}"
-
+						sh "docker logs ${appContainerId}"
                         // Execute the command within the container
                         sh "docker exec ${appContainerId} sh -c 'cd /corider && python manage.py test'"
+                        sh "docker logs ${appContainerId}"
                     } finally {
                         if (appContainerId) {
                             // Print container logs
