@@ -16,30 +16,30 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
+        stage('Unit Tests & Deploy') {
             steps {
                 script {
+                    def testFailed = false
                     try {
-                        sh 'docker-compose -f docker-compose.staging.yaml up -d'
-                        sh 'docker-compose -f docker-compose.staging.yaml logs -f test_app & sleep 5'
-                        sh 'docker-compose -f docker-compose.staging.yaml exec -T test_app sh -c "cd /corider && python manage.py test"'
-                        sh 'docker tag corider:latest corider:stable'
+                    	env.DOCKER_IMAGE_TAG = 'latest'
+                        sh 'docker-compose -f docker-compose.yaml up -d'
+                        sh 'docker-compose -f docker-compose.yaml logs -f app & sleep 10'
+                        sh 'docker-compose -f docker-compose.yaml exec -T app sh -c "cd /corider && python manage.py test"'
                     } catch (Exception err) {
-                        currentBuild.result = 'FAILURE'
+                        testFailed = true
                         echo "Unit tests failed. Performing rollback..."
-                        sh 'docker-compose -f docker-compose.staging.yaml down'
-                        error("Unit tests failed. Deployment rollback performed.")
                     } finally {
-                        sh 'docker-compose -f docker-compose.staging.yaml down'
+                        sh 'docker-compose -f docker-compose.yaml down'
                     }
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                catchError(buildResult: 'FAILURE', stageResult: 'UNSTABLE') {
-                    sh 'docker-compose -f docker-compose.yaml up -d'
+					env.DOCKER_IMAGE_TAG = 'stable'
+                    if (testFailed) {
+                        sh 'docker-compose -f docker-compose.yaml up -d'
+                    } else {
+                        sh 'docker tag corider:latest corider:stable'
+                        catchError(buildResult: 'FAILURE', stageResult: 'UNSTABLE') {
+                            sh 'docker-compose -f docker-compose.yaml up -d'
+                        }
+                    }
                 }
             }
         }
