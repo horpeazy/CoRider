@@ -1,13 +1,13 @@
 version: '3'
 services: 
-  test_db:
+  db:
     image: postgres
     environment:
       - POSTGRES_DB=corider
       - POSTGRES_USER=horpeazy
       - POSTGRES_PASSWORD=afisuru123
     volumes:
-      - test_postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     tty: true
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "horpeazy"]
@@ -29,11 +29,11 @@ services:
       - /var/www/html/corider/static:/corider/static/
       - /var/www/html/corider/media:/corider/media/
     depends_on:
-      - test_db
+      - db
     working_dir: /corider
     command: >
       bash -c '
-       ./wait-for-it.sh test_db:5432 -t 60 &&
+       ./wait-for-it.sh db:5432 -t 60 &&
        python manage.py makemigrations &&
        python manage.py migrate &&
        gunicorn corider.wsgi:application --bind 0.0.0.0:8000 '
@@ -46,7 +46,5 @@ services:
       
 volumes:
   postgres-data:
-    driver: local
-  test_postgres-data:
     driver: local
 
