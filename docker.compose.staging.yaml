@@ -3,7 +3,7 @@ services:
   test_db:
     image: postgres
     environment:
-      - POSTGRES_DB=corider_test_db
+      - POSTGRES_DB=corider
       - POSTGRES_USER=horpeazy
       - POSTGRES_PASSWORD=afisuru123
     volumes:
@@ -20,7 +20,7 @@ services:
     ports:
       - 5000:8000
     environment:
-      - DATABASE_NAME=corider_test_db
+      - DATABASE_NAME=corider
       - DATABASE_USER=horpeazy
       - DATABASE_USER_PWD=afisuru123
       - DATABASE_HOST=db
