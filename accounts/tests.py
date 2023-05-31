@@ -98,7 +98,7 @@ class SignUpViewTest(TestCase):
         	'password1': 'abc',
         	'password2': 'abc',
     	})
-    	self.assertEqual(response.status_code, 201)
+    	self.assertEqual(response.status_code, 200)
     	self.assertFalse(response.wsgi_request.user.is_authenticated)
 
     	password2_errors = response.context['form'].errors.get('password2', [])
