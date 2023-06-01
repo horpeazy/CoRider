@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 sh 'docker build -t corider:latest .'
@@ -23,7 +24,7 @@ pipeline {
                     try {
                     	env.DOCKER_IMAGE_TAG = 'latest'
                         sh 'docker-compose -f docker-compose.yaml up -d'
-                        sh 'docker-compose -f docker-compose.yaml logs -f app & sleep 10'
+                        sh 'docker-compose -f docker-compose.yaml logs -f app & sleep 5'
                         sh 'docker-compose -f docker-compose.yaml exec -T app sh -c "cd /corider && python manage.py test"'
                     } catch (Exception err) {
                         testFailed = true
@@ -43,6 +44,7 @@ pipeline {
                 }
             }
         }
+
     }
 }
 
