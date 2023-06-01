@@ -16,12 +16,15 @@ class VehicleForm(forms.ModelForm):
 			fields = ('make', 'model', 'color', 'plate_number',)
 			
 		def is_empty(self):
-			if ( not self.data['make'] and 
-				 not self.data['model'] and
-				 not self.data['color'] and
-				 not self.data['plate_number'] ):
-				return True
-			return False
+			try:
+				if ( not self.data['make'] and 
+					 not self.data['model'] and
+					 not self.data['color'] and
+					 not self.data['plate_number'] ):
+					return True
+				return False
+			except:
+				return False
 			
 		def is_valid(self):
 			valid = super().is_valid()

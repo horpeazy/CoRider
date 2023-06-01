@@ -37,6 +37,13 @@ def find_match(request):
 		origin_lon = request_body.get('origin_lon')
 		destination_lat = request_body.get('destination_lat')
 		destination_lon = request_body.get('destination_lon')
+		
+		if type(route) != list:
+			response = {
+				'status': 400,
+				'message': 'Bad reequest'
+			}
+			return JsonResponse(response, status=400)
 		# Cancel former rides and save the new trip
 		rides = Ride.objects.filter(user=request.user).exclude(Q(status=Ride.INACTIVE))
 		user = User.objects.filter(username=request.user.username).first()
@@ -98,9 +105,15 @@ def create_review(request):
 		rating = request_body.get('rating')
 		ride = Ride.objects.filter(id=ride_id).first()
 		user = User.objects.filter(id=user_id).first()
-		if rating == '':
+		if not rating or rating == '':
 			rating = 0
 		if rating:
+			if type(rating) != int:
+				response = {
+					'status': 400,
+					'message': 'Bad request'
+				}
+				return JsonResponse(response, status=400)
 			Rating.objects.create(user=user, rate=rating,
 								  rater=request.user, ride=ride)
 			user_ratings = Rating.objects.filter(user=user)
@@ -134,4 +147,9 @@ def email_subscription(request):
 			'message': 'Invalid request'
 		}
 		return JsonResponse(response, status=400)
+	response = {
+		'status': 405,
+		'message': 'Method not allowed'
+	}
+	return JsonResponse(response, status=405)
 

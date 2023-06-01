@@ -92,6 +92,8 @@ def reviews(request):
 @login_required   
 def profile_reviews(request, username):
 	user = User.objects.filter(username=username).first()
+	if not user:
+		return redirect('rides:404')
 	reviews = Review.objects.filter(user=user).all()
 	context = {
 		'title': 'Profile Reviews',
@@ -265,7 +267,7 @@ def match(request):
 		ride.save()
 		match.save()
 		req.save()
-		return redirect('rides:ride-detail', ride_id=ride_id)  
+		return redirect('rides:ride_detail', ride_id=ride_id)  
 	else:
 		return render(request, 'rides/404.html', context)
 	
@@ -279,11 +281,13 @@ def decline(request):
 		req = Request.objects.\
 					  filter(sender=match.user,receiver=ride.user,r_ride=ride).\
 					  first()
+		if not req:
+			return redirect('rides:404')
 		req.status = Request.DECLINED
 		req.save()
-		return redirect('rides:ride-detail', ride_id=ride_id)
+		return redirect('rides:ride_detail', ride_id=ride_id)
 	else:
-		return render(request, 'rides/404.html', context)
+		return redirect('rides:404')
 
 @login_required    
 def request(request):
@@ -295,7 +299,9 @@ def request(request):
 	if ride and match:
 		Request.objects.create(sender=ride.user, receiver=match.user,
 							   r_ride=match, s_ride=ride)
-	return redirect('rides:ride-detail', ride_id=ride_id)
+	else:
+		return redirect('rides:404')
+	return redirect('rides:ride_detail', ride_id=ride_id)
 
 @login_required	
 def end_trip(request):
@@ -305,7 +311,7 @@ def end_trip(request):
 		review = request.POST.get('review')
 		rate = request.POST.get('rating', 0)
 		ride = Ride.objects.filter(user=request.user, id=ride_id).first()
-		user = User.objects.get(username=driver_name)
+		user = User.objects.filter(username=driver_name).first()
 		if rate:
 				rating = Rating.objects.create(user=user, rate=rate,
 											   rater=request.user, ride=ride)
@@ -330,11 +336,12 @@ def end_trip(request):
 			user.as_passenger += 1
 		user.save()
 		ride.save()
-	return redirect('rides:ride-detail', ride_id)
+	else:
+		return redirect('rides:404')
+	return redirect('rides:ride_detail', ride_id)
 
 def error_404_page(request):
 	context = {
 		'title': '404 Error Page',
-		'cache_id': uuid.uuid4()
 	}
 	return render(request, 'rides/404.html', context)

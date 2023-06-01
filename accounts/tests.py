@@ -1,7 +1,9 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
+from accounts.views import login_view, logout_view
 from django.contrib.auth import get_user_model
-from accounts.forms import SignUpForm
+from accounts.forms import SignUpForm, LoginForm
+from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
 
@@ -110,8 +112,142 @@ class SignUpViewTest(TestCase):
     	self.assertTrue(any(error in password2_errors for error in expected_errors))
 
 
+class LoginViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.login_url = reverse('accounts:login')
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+    def test_get_request(self):
+        response = self.client.get(self.login_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertIsInstance(response.context['form'], AuthenticationForm)
+
+    def test_valid_credentials(self):
+        response = self.client.post(self.login_url, {
+            'username': 'testuser',
+            'password': 'testpassword',
+        })
+        self.assertRedirects(response, '/')
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_invalid_credentials(self):
+        response = self.client.post(self.login_url, {
+            'username': 'testuser',
+            'password': 'wrongpassword',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertFormError(response, 'form', None, 'Please enter a correct username and password. Note that both fields may be case-sensitive.')
+
+    def test_missing_username(self):
+        response = self.client.post(self.login_url, {
+            'password': 'testpassword',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertFormError(response, 'form', 'username', 'This field is required.')
+
+    def test_missing_password(self):
+        response = self.client.post(self.login_url, {
+            'username': 'testuser',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertFormError(response, 'form', 'password', 'This field is required.')
+
+    def test_empty_fields(self):
+        response = self.client.post(self.login_url, {
+            'username': '',
+            'password': '',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertFormError(response, 'form', 'username', 'This field is required.')
+        self.assertFormError(response, 'form', 'password', 'This field is required.')
+
+    def test_authenticated_user(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.login_url)
+        self.assertRedirects(response, '/')
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_next_parameter(self):
+        response = self.client.post(self.login_url + '?next=/account', {
+            'username': 'testuser',
+            'password': 'testpassword',
+        })
+        self.assertEqual(response.status_code, 302)
+
+    def test_invalid_next_parameter(self):
+        response = self.client.post(self.login_url + '?next=http://malicious.com', {
+            'username': 'testuser',
+            'password': 'testpassword',
+        })
+        self.assertEqual(response.status_code, 302)
 
 
+class LogoutViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.logout_url = reverse('accounts:logout')
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
 
+    def test_logout_authenticated_user(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
 
+    def test_logout_unauthenticated_user(self):
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_redirect_home(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/')
+
+    def test_logout_post_request(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(self.logout_url)
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_no_user(self):
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_with_other_data(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url, data={'key': 'value'})
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_with_invalid_user(self):
+        self.client.login(username='testuser', password='testpassword')
+        self.user.delete()
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_with_extra_path(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url + 'extra/path')
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_with_query_parameter(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url + '?next=/accounts/profile')
+        self.assertRedirects(response, '/')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_logout_with_invalid_method(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(self.logout_url)
+        self.assertEqual(response.status_code, 302)
 
